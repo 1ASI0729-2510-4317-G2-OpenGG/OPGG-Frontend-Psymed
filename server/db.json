@@ -1,0 +1,639 @@
+{
+  "accounts": [
+    {
+      "id": "1",
+      "userName": "Jhon",
+      "password": "123456",
+      "role": 1
+    },
+    {
+      "id": "2",
+      "userName": "juan",
+      "password": "abcdef",
+      "role": 1
+    },
+    {
+      "id": "3",
+      "userName": "Michael",
+      "password": "admin123",
+      "role": 2
+    },
+    {
+      "id": "4",
+      "userName": "jane",
+      "password": "aeiou",
+      "role": 2
+    },
+    {
+      "id": "5",
+      "userName": "Sarah",
+      "password": "adminaeiou",
+      "role": 2
+    }
+  ],
+  "professionals": [
+    {
+      "idAccount": "1",
+      "dni": "12345678",
+      "name": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "userName": "Jhon",
+      "phone": "+51 987 654 321",
+      "address": "5555Main St, Lima, Peru",
+      "birthday": "1981-05-10",
+      "description": "Dr. John Doe is a psychiatrist with over 1 years of experience in the mental health field. A graduate of medicine, he specializes in mood disorders, anxiety, and psychotherapy.",
+      "image": "assets/img/images.jpg",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "idAccount": 2,
+      "name": "Juan",
+      "lastName": "Perez",
+      "dni": "87654321",
+      "email": "juan.perez@example.com",
+      "phone": "+51 912 345 678",
+      "address": "456 Oak Ave, Arequipa, Peru",
+      "birthday": "1985-11-15",
+      "image": "https://example.com/images/professionals/juan_perez.jpg",
+      "description": "Dr. Juan Perez is a specialist in child and adolescent psychiatry with a focus on developmental disorders and behavioral therapy. He has worked extensively with young patients facing emotional and social challenges, helping them navigate their mental health journeys with compassion and expertise. Dr. Perez is committed to building strong therapeutic relationships with both his young patients and their families, ensuring a comprehensive and supportive approach to care."
+    }
+  ],
+  "patients": [
+    {
+      "idAccount": 3,
+      "dni": "11112222",
+      "name": "Michael",
+      "lastName": "Smith",
+      "email": "mich.smith@example.com",
+      "phone": "+51 921 123 457",
+      "address": "787 Pine St, Cusco, Peru",
+      "birthday": "1991-07-12",
+      "description": "Michael Smith has been diagnosed with an depression. He has been undergoing treatment for managing his symptoms, which include persistent worry and occasional panic attacks. Michael is committed to working with his therapist and psychiatrist to regain control over his daily life, improve his coping strategies, and enhance his emotional resilience.",
+      "image": "assets/img/images (1).jpg",
+      "id": "1",
+      "idClinicalHistory": 1
+    },
+    {
+      "id": "2",
+      "idAccount": 4,
+      "idClinicalHistory": 2,
+      "name": "Jane",
+      "lastName": "Doe",
+      "dni": "22221111",
+      "email": "jane.doe@example.com",
+      "phone": "+51 934 567 890",
+      "address": "101 Cedar Rd, Trujillo, Peru",
+      "birthday": "1988-09-25",
+      "image": "https://example.com/images/patients/jane_doe.jpg",
+      "description": "Jane Doe is undergoing treatment for depression. Her journey toward recovery involves both medication and therapy to help manage feelings of sadness and fatigue that have impacted her life. Jane is working closely with her mental health team to explore strategies that can help improve her mood, energy levels, and overall quality of life."
+    },
+    {
+      "id": "3",
+      "idAccount": 5,
+      "idClinicalHistory": 3,
+      "name": "Sarah",
+      "lastName": "Johnson",
+      "dni": "33334444",
+      "email": "sarah.johnson@example.com",
+      "phone": "+51 945 678 901",
+      "address": "202 Maple Blvd, Chiclayo, Peru",
+      "birthday": "1992-12-05",
+      "image": "https://example.com/images/patients/sarah_johnson.jpg",
+      "description": "Sarah Johnson has a history of bipolar disorder. She has been working with her mental health professionals to maintain mood stability and prevent episodes of depression and mania. Sarah’s treatment plan includes mood stabilizers and regular therapy sessions that focus on emotional regulation and healthy lifestyle habits."
+    }
+  ],
+  "notes": [
+    {
+      "id": "1",
+      "description": "Patient is doing well and is responding to the treatment.",
+      "symptoms": "The patient has some symptoms like headache, dizziness, and fatigue."
+    },
+    {
+      "id": "2",
+      "description": "Patient shows improvement in mood and social interactions.",
+      "symptoms": "Occasional anxiety and trouble sleeping."
+    },
+    {
+      "id": "3",
+      "description": "Patient reports feeling more energetic and motivated.",
+      "symptoms": "Minor headaches and occasional sadness."
+    },
+    {
+      "id": "4",
+      "description": "Patient is struggling with stress related to work.",
+      "symptoms": "Increased irritability and fatigue."
+    },
+    {
+      "id": "5",
+      "description": "Patient is feeling overwhelmed but is seeking help.",
+      "symptoms": "Symptoms include anxiety and restlessness."
+    }
+  ],
+  "sessions": [
+    {
+      "id": "17",
+      "idProfessional": 1,
+      "idPatient": 1,
+      "idNote": 1,
+      "appointmentDate": "2024-09-03T16:11:00.000Z",
+      "sessionTime": 11,
+      "createdAt": "2024-09-24T06:50:13.681Z",
+      "updatedAt": "2024-09-24T06:50:13.681Z",
+      "patient": {
+        "id": 1,
+        "name": "Michael",
+        "lastName": "Smith"
+      }
+    },
+    {
+      "id": "21",
+      "idProfessional": 1,
+      "idPatient": 1,
+      "idNote": 1,
+      "appointmentDate": "1110-12-31T16:19:12.000Z",
+      "sessionTime": 11,
+      "createdAt": "2024-09-24T19:15:56.586Z",
+      "updatedAt": "2024-09-24T19:15:56.586Z",
+      "patient": {
+        "id": 1,
+        "name": "Michael",
+        "lastName": "Smith"
+      }
+    },
+    {
+      "id": "22",
+      "idProfessional": 1,
+      "idPatient": 2,
+      "idNote": 1,
+      "appointmentDate": "+111111-01-01T16:01:00.000Z",
+      "sessionTime": 1,
+      "createdAt": "2024-09-24T19:22:49.873Z",
+      "updatedAt": "2024-09-24T19:22:49.873Z",
+      "patient": {
+        "id": 1,
+        "name": "Michael",
+        "lastName": "Smith"
+      }
+    },
+    {
+      "id": "23",
+      "idProfessional": 1,
+      "idPatient": 2,
+      "idNote": 1,
+      "appointmentDate": "0111-01-01T16:19:12.000Z",
+      "sessionTime": 1,
+      "createdAt": "2024-09-24T19:27:56.033Z",
+      "updatedAt": "2024-09-24T19:27:56.033Z",
+      "patient": {
+        "id": 1,
+        "name": "Michael",
+        "lastName": "Smith"
+      }
+    },
+    {
+      "id": "24",
+      "idProfessional": 1,
+      "idPatient": 2,
+      "idNote": 1,
+      "appointmentDate": "0111-01-01T16:19:12.000Z",
+      "sessionTime": 1,
+      "createdAt": "2024-09-24T19:27:56.033Z",
+      "updatedAt": "2024-09-24T19:27:56.033Z",
+      "patient": {
+        "id": 2,
+        "name": "Jane",
+        "lastName": "Doe"
+      }
+    }
+  ],
+  "treatments": [
+    {
+      "id": "1",
+      "idPatient": 1,
+      "idProfessional": 1,
+      "name": "Cognitive Behavioral Therapy",
+      "description": "Cognitive-behavioral therapy (CBT) is a short-term, goal-oriented psychotherapy treatment that takes a hands-on, practical approach to problem-solving. Its goal is to change patterns of thinking or behavior that are behind people's difficulties, and so change the way they feel.",
+      "startDate": "2021-06-01",
+      "endDate": "2021-06-30"
+    },
+    {
+      "id": "2",
+      "idPatient": 2,
+      "idProfessional": 2,
+      "name": "Dialectical Behavior Therapy",
+      "description": "Dialectical behavior therapy (DBT) is a cognitive-behavioral treatment developed to help people with emotional regulation and interpersonal effectiveness. It combines individual therapy with group skills training.",
+      "startDate": "2021-07-01",
+      "endDate": "2021-07-31"
+    },
+    {
+      "id": "3",
+      "idPatient": 3,
+      "idProfessional": 1,
+      "name": "Mindfulness-Based Stress Reduction",
+      "description": "Mindfulness-based stress reduction (MBSR) is a structured program that uses mindfulness meditation to alleviate stress and improve mental health. It involves body awareness, meditation, and yoga.",
+      "startDate": "2021-08-01",
+      "endDate": "2021-08-31"
+    }
+  ],
+  "medications": [
+    {
+      "id": "1",
+      "name": "Paracetamoll",
+      "description": "Paracetamol, also known as acetaminophen, is a medication used to treat pain and fever. It is typically used for mild to moderate pain relief.",
+      "startDate": "2021-06-01T00:00:00.000Z",
+      "endDate": "2021-06-30T00:00:00.000Z",
+      "interval": "Take every 8 hours",
+      "quantity": 30,
+      "status": 1,
+      "patientId": 1
+    },
+    {
+      "id": "2",
+      "name": "Ibuprofen",
+      "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation.",
+      "startDate": "2021-07-01T00:00:00.000Z",
+      "endDate": "2021-07-31T00:00:00.000Z",
+      "interval": "Take every 6 hours",
+      "quantity": 20,
+      "status": 0,
+      "patientId": 2
+    },
+    {
+      "id": "3",
+      "name": "Amoxicillin",
+      "description": "Amoxicillin is a penicillin antibiotic used to treat a variety of bacterial infections.",
+      "startDate": "2021-08-01T00:00:00.000Z",
+      "endDate": "2021-08-31T00:00:00.000Z",
+      "interval": "Take every 8 hours",
+      "quantity": 30,
+      "status": 0,
+      "patientId": 3
+    },
+    {
+      "id": "4",
+      "name": "Cetirizine",
+      "description": "Cetirizine is an antihistamine used to relieve allergy symptoms such as sneezing, runny nose, and itchy eyes.",
+      "startDate": "2021-09-01T00:00:00.000Z",
+      "endDate": "2021-09-30T00:00:00.000Z",
+      "interval": "Take once daily",
+      "quantity": 30,
+      "status": 0,
+      "patientId": 1
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "1",
+      "medications": [
+        {
+          "id": 1,
+          "name": "Paracetamol",
+          "description": "Paracetamol, also known as acetaminophen, is a medication used to treat pain and fever. It is typically used for mild to moderate pain relief."
+        },
+        {
+          "id": 2,
+          "name": "Ibuprofen",
+          "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
+        }
+      ],
+      "description": "This prescription includes medications needed to treat your condition. Follow the instructions for use and do not forget to attend your follow-up appointments."
+    },
+    {
+      "id": "2",
+      "medications": [
+        {
+          "id": 4,
+          "name": "Cetirizine",
+          "description": "Cetirizine is an antihistamine used to relieve allergy symptoms such as sneezing, runny nose, and itchy eyes."
+        },
+        {
+          "id": 2,
+          "name": "Ibuprofen",
+          "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
+        },
+        {
+          "id": 3,
+          "name": "Amoxicillin",
+          "description": "Amoxicillin is a penicillin antibiotic used to treat a variety of bacterial infections."
+        }
+      ],
+      "description": "It is recommended that you follow this medication prescription to ensure optimal recovery. Take the time to understand the dosages and schedule of administration."
+    }
+  ],
+  "medicalPrescriptions": [
+    {
+      "id": "1",
+      "patientId": 1,
+      "professionalId": 1,
+      "name": "Prescription for Anxiety",
+      "description": "This is a medical prescription for treating anxiety.",
+      "createdAt": "2021-06-01T00:00:00.000Z",
+      "updatedAt": "2021-06-01T00:00:00.000Z",
+      "prescription": [
+        {
+          "id": 1,
+          "medications": [
+            {
+              "id": 1,
+              "name": "Paracetamol",
+              "description": "Paracetamol, also known as acetaminophen, is a medication used to treat pain and fever. It is typically used for mild to moderate pain relief."
+            },
+            {
+              "id": 2,
+              "name": "Ibuprofen",
+              "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
+            }
+          ],
+          "description": "This prescription includes medications needed to treat your condition. Follow the instructions for use and do not forget to attend your follow-up appointments."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "patientId": 2,
+      "professionalId": 1,
+      "name": "Prescription for Pain Management",
+      "description": "This is a medical prescription for managing pain.",
+      "createdAt": "2021-07-01T00:00:00.000Z",
+      "updatedAt": "2021-07-01T00:00:00.000Z",
+      "prescription": {
+        "id": 2,
+        "medications": [
+          {
+            "id": 4,
+            "name": "Cetirizine",
+            "description": "Cetirizine is an antihistamine used to relieve allergy symptoms such as sneezing, runny nose, and itchy eyes."
+          },
+          {
+            "id": 2,
+            "name": "Ibuprofen",
+            "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
+          },
+          {
+            "id": 3,
+            "name": "Amoxicillin",
+            "description": "Amoxicillin is a penicillin antibiotic used to treat a variety of bacterial infections."
+          }
+        ],
+        "description": "It is recommended that you follow this medication prescription to ensure optimal recovery. Take the time to understand the dosages and schedule of administration."
+      }
+    }
+  ],
+  "specialities": [
+    {
+      "id": "1",
+      "idProfessional": "1",
+      "name": "Psychiatrist"
+    },
+    {
+      "id": "2",
+      "idProfessional": "2",
+      "name": "Clinical Psychologist"
+    },
+    {
+      "id": "3",
+      "idProfessional": "1",
+      "name": "Psychiatric Nurse"
+    }
+  ],
+  "clinicalHistories": [
+    {
+      "id": "1",
+      "background": "allll",
+      "consultationReason": "all",
+      "symptoms": "all",
+      "date": "29/10/2024"
+    },
+    {
+      "id": "2",
+      "background": "The patient has a history of depression.",
+      "consultationReason": "The patient has a history of depression.",
+      "symptoms": "Occasional anxiety and trouble with sleeping.",
+      "date": "26/10/2024"
+    },
+    {
+      "id": "3",
+      "background": "The patient is experiencing chronic stress due to work.",
+      "consultationReason": "The patient is experiencing chronic stress due to work.",
+      "symptoms": "Increased irritability and fatigue.",
+      "date": "2021-08-01"
+    }
+  ],
+  "diagnostics": [
+    {
+      "id": "1",
+      "name": "Anxiety",
+      "description": "Anxiety is your body's natural response to stress. It's a feeling of fear or apprehension about what's to come. The first day of school, going to a job interview, or giving a speech may cause most people to feel fearful and nervous.",
+      "idClinicalHistory": 1,
+      "createdAt": "2021-06-01",
+      "updatedAt": "30/10/2024"
+    },
+    {
+      "id": "2",
+      "name": "Depression",
+      "description": "Depression is a mood disorder that causes a persistent feeling of sadness and loss of interest. It affects how you feel, think, and handle daily activities.",
+      "idClinicalHistory": 2,
+      "createdAt": "2021-07-01",
+      "updatedAt": "2021-07-01"
+    },
+    {
+      "id": "3",
+      "name": "Chronic Stress",
+      "description": "Chronic stress can occur when the body experiences stress continuously over a long period. It can affect your physical and emotional health.",
+      "idClinicalHistory": 3,
+      "createdAt": "2021-08-01",
+      "updatedAt": "2021-08-01"
+    }
+  ],
+  "patientMoods": [
+    {
+      "id": "1",
+      "idPatient": 1,
+      "mood": 1,
+      "createdAt": "2021-06-01"
+    },
+    {
+      "id": "2",
+      "idPatient": 2,
+      "mood": 2,
+      "createdAt": "2021-07-01"
+    },
+    {
+      "id": "3",
+      "idPatient": 3,
+      "mood": 3,
+      "createdAt": "2021-08-01"
+    },
+    {
+      "id": "4",
+      "idPatient": 1,
+      "mood": 4,
+      "createdAt": "2021-06-15"
+    },
+    {
+      "id": "5",
+      "idPatient": 2,
+      "mood": 5,
+      "createdAt": "2021-07-15"
+    },
+    {
+      "id": "1",
+      "idPatient": 1,
+      "mood": 5,
+      "createdAt": "hoy xd"
+    }
+  ],
+  "biologicalFunctions": [
+    {
+      "id": "1",
+      "hunger": 5,
+      "hydration": 5,
+      "sleep": 5,
+      "energy": 5,
+      "createdAt": "2021-06-01",
+      "updatedAt": "2021-06-01",
+      "idPatient": 1
+    },
+    {
+      "id": "2",
+      "hunger": 3,
+      "hydration": 4,
+      "sleep": 2,
+      "energy": 4,
+      "createdAt": "2021-07-01",
+      "updatedAt": "2021-07-01",
+      "idPatient": 2
+    },
+    {
+      "id": "3",
+      "hunger": 4,
+      "hydration": 5,
+      "sleep": 3,
+      "energy": 4,
+      "createdAt": "2021-08-01",
+      "updatedAt": "2021-08-01",
+      "idPatient": 3
+    }
+  ],
+  "patientNotifications": [
+    {
+      "idPatient": 1,
+      "unseenNotificationCount": 2,
+      "id": "93ed"
+    }
+  ],
+  "patient-mood-analytic": [
+    {
+      "idPatient": "1",
+      "month": "02",
+      "year": "2024",
+      "sadMood": "1",
+      "happyMood": "3",
+      "neutralMood": "2",
+      "soSadMood": "3",
+      "soHappyMood": "1",
+      "id": "0119"
+    },
+    {
+      "idPatient": "1",
+      "month": "03",
+      "year": "2024",
+      "sadMood": "3",
+      "happyMood": "1",
+      "neutralMood": "3",
+      "soSadMood": "1",
+      "soHappyMood": "2",
+      "id": "bcdf"
+    }
+  ],
+  "task": [
+    {
+      "id": "1",
+      "idPatient": 1,
+      "idSession": 17,
+      "title": "Task tes",
+      "description": "This is a task description",
+      "status": 0,
+      "createdAt": "2021-06-01",
+      "updatedAt": "2021-06-01"
+    },
+    {
+      "id": "2",
+      "idPatient": 1,
+      "idSession": 17,
+      "title": "Task 2",
+      "description": "This is a task description",
+      "status": 0,
+      "createdAt": "2021-06-01",
+      "updatedAt": "2021-06-01"
+    },
+    {
+      "id": "3",
+      "idPatient": 3,
+      "idSession": 10,
+      "title": "Task 3",
+      "description": "This is a task description",
+      "status": 0,
+      "createdAt": "2021-06-01",
+      "updatedAt": "2021-06-01"
+    }
+  ],
+  "patient-biological-analytic": [
+    {
+      "idPatient": "1",
+      "month": "02",
+      "year": "2024",
+      "hungerAverage": "1",
+      "sleepAverage": "2",
+      "energyAverage": "2",
+      "hydrationAverage": "5",
+      "id": "02bc"
+    },
+    {
+      "idPatient": "1",
+      "month": "03",
+      "year": "2024",
+      "hungerAverage": "3",
+      "sleepAverage": "1",
+      "energyAverage": "3",
+      "hydrationAverage": "1",
+      "id": "2639"
+    }
+  ],
+  "session-notes": [
+    {
+      "id": "1",
+      "idPatient": "1",
+      "idSession": "17",
+      "title": "Note about how the patient is doing",
+      "description": "The patient is doing well and is responding to the treatment.",
+      "date": "2024-09-03T16:11:00.000Z"
+    },
+    {
+      "id": "2",
+      "idPatient": "1",
+      "idSession": "17",
+      "title": "Note about the patient's progress",
+      "description": "Patient reports feeling more energetic and motivated.",
+      "date": "2024-09-03T16:11:00.000Z"
+    },
+    {
+      "id": "3",
+      "idPatient": "2",
+      "idSession": "21",
+      "title": "Noteaaaaaaaaaaaa aa ",
+      "description": "Patient asdasd asdasd.",
+      "date": "2023-09-03T16:11:00.000Z"
+    },
+    {
+      "id": "4",
+      "patientId": "1",
+      "sessionId": "17",
+      "title": "aaa",
+      "description": "aaa",
+      "date": "2024-10-12T05:05:09.337Z"
+    }
+  ]
+}

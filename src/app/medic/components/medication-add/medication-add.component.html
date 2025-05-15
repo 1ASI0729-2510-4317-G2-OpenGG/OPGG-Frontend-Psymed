@@ -1,0 +1,85 @@
+<section class="dashboard-content" style="max-width: 600px; margin: 0 auto;">
+  <div class="welcome-section" style="text-align: center;">
+    <h1>{{ 'medication-list.add_medication' | translate }}</h1>
+  </div>
+
+  <form (ngSubmit)="addMedication()" #medForm="ngForm">
+    <mat-card class="med-card">
+      <mat-card-content>
+
+        <div class="form-group">
+          <label for="name">{{ 'medication-list.name' | translate }}</label>
+          <input
+            id="name"
+            name="name"
+            [(ngModel)]="newMedication.name"
+            required
+            class="mat-input-element"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="dosage">{{ 'medication-list.dosage' | translate }}</label>
+          <input
+            id="dosage"
+            name="dosage"
+            [(ngModel)]="newMedication.dosage"
+            class="mat-input-element"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="sideEffects">{{ 'medication-list.side_effects' | translate }}</label>
+          <input
+            id="sideEffects"
+            name="sideEffects"
+            [(ngModel)]="newMedication.sideEffects"
+            class="mat-input-element"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">{{ 'medication-list.quantity' | translate }}</label>
+          <input
+            id="quantity"
+            name="quantity"
+            type="number"
+            [(ngModel)]="newMedication.quantity"
+            class="mat-input-element"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="startDate">{{ 'medication-list.start_date' | translate }}</label>
+          <input
+            id="startDate"
+            name="startDate"
+            type="date"
+            [(ngModel)]="newMedication.startDate"
+            class="mat-input-element"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">{{ 'medication-list.end_date' | translate }}</label>
+          <input
+            id="endDate"
+            name="endDate"
+            type="date"
+            [(ngModel)]="newMedication.endDate"
+            class="mat-input-element"
+          />
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions style="justify-content: center;">
+        <button mat-raised-button color="primary" type="submit">
+          {{ 'medication-list.add_medication' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+</section>
+
+

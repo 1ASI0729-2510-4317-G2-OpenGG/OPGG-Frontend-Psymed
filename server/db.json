@@ -33,6 +33,7 @@
   ],
   "professionals": [
     {
+      "id": "1",
       "idAccount": "1",
       "dni": "12345678",
       "name": "John",
@@ -43,12 +44,11 @@
       "address": "5555Main St, Lima, Peru",
       "birthday": "1981-05-10",
       "description": "Dr. John Doe is a psychiatrist with over 1 years of experience in the mental health field. A graduate of medicine, he specializes in mood disorders, anxiety, and psychotherapy.",
-      "image": "assets/img/images.jpg",
-      "id": "1"
+      "image": "assets/img/images.jpg"
     },
     {
       "id": "2",
-      "idAccount": 2,
+      "idAccount": "2",
       "name": "Juan",
       "lastName": "Perez",
       "dni": "87654321",

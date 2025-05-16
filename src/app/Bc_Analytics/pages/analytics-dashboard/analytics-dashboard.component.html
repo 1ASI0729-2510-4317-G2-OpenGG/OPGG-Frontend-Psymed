@@ -1,0 +1,13 @@
+<app-pie-filter
+  (dataFilterRequested)="onFilterRequested($event)"
+/>
+<div class="chart-container">
+  <app-pie-chart
+    [moodAnalytics]="moodAnalyticData"
+  />
+  <div class="bar-chart-container">
+    <app-bar-chart
+      [biologicalAnalytic]="biologicalAnalyticData"
+    />
+  </div>
+</div>

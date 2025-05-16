@@ -1,4 +1,19 @@
 {
+  "dashboard-analytics": {
+    "filter": {
+      "title": "Filtros",
+      "year": "Año",
+      "month": "Mes",
+      "button": "Filtrar"
+    },
+    "bar-chart": {
+      "title": "Estadísticas Promedio de Funciones Biológicas",
+      "month-average": "Promedio mensual"
+    },
+    "pie-chart": {
+      "title": "Número total de estados de ánimo"
+    }
+  },
   "medication-list": {
     "title": "Lista de Medicamentos",
     "loading": "Cargando medicamentos...",

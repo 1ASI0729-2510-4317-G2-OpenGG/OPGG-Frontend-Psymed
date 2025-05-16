@@ -1,0 +1,14 @@
+<div class="bar-chart-container">
+  <mat-card appearance="outlined">
+    <mat-card-title>
+      {{"dashboard-analytics.bar-chart.title" | translate }}
+    </mat-card-title>
+    <mat-card-content class="content">
+      <canvas class="bar-chart" baseChart
+              [data]="barChartData"
+              [labels]="barChartLabels"
+              [type]="'bar'">
+      </canvas>
+    </mat-card-content>
+  </mat-card>
+</div>

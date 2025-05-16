@@ -1,0 +1,8 @@
+{
+  "APP_TITLE": "SPYMED",
+  "ROLE_SELECTION": {
+    "TITLE": "Select your user type to continue",
+    "DOCTOR": "Doctor",
+    "PATIENT": "Patient"
+  }
+}

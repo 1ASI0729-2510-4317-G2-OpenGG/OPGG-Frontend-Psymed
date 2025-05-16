@@ -1,102 +1,179 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterModule, Router } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatIconModule
   ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  template: `
+    <div class="login-container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Welcome to SPYMED</mat-card-title>
+          <mat-card-subtitle>Please sign in to continue</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="Enter your email">
+              <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                Please enter a valid email address
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+            </mat-form-field>
+
+            <div class="form-actions">
+              <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+                Sign In
+              </button>
+            </div>
+          </form>
+
+          <div class="additional-actions">
+            <a routerLink="/auth/password-reset" class="forgot-password">
+              Forgot your password?
+            </a>
+            <div class="register-link">
+              Don't have an account? <a routerLink="/auth/register">Register here</a>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  `,
+  styles: [`
+    .login-container {
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    mat-card {
+      padding: 2rem;
+    }
+
+    mat-card-title {
+      color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    mat-card-subtitle {
+      color: #666;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .form-actions {
+      margin-top: 1rem;
+    }
+
+    .form-actions button {
+      width: 100%;
+      padding: 0.75rem;
+    }
+
+    .additional-actions {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .forgot-password {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .register-link {
+      margin-top: 1rem;
+      color: #666;
+    }
+
+    .register-link a {
+      color: #3f51b5;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  `]
 })
-export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  returnUrl: string = '';
-  error: string = '';
-  loading = false;
-  selectedRole: 'doctor' | 'patient' | null = null;
+export class LoginComponent {
+  loginForm: FormGroup;
+  hidePassword = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    // Capturar el rol desde los parámetros de la URL
-    this.route.queryParams.subscribe(params => {
-      if (params['role'] && (params['role'] === 'doctor' || params['role'] === 'patient')) {
-        this.selectedRole = params['role'] as 'doctor' | 'patient';
-      }
-    });
-
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-
-    // Reset login status
-    this.authService.logout();
-
-    // Get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // Convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      try {
+        const { email, password } = this.loginForm.value;
+        const user = await this.authService.login(email, password);
 
-  onSubmit() {
-    // Stop if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.error = '';
-
-    // Si hay un rol seleccionado, usamos ese username
-    let username = this.f['username'].value;
-    if (this.selectedRole) {
-      username = this.selectedRole;
-    }
-
-    this.authService.login(username, this.f['password'].value)
-      .subscribe({
-        next: () => {
-          // Navigate based on user role
-          const user = this.authService.currentUserValue;
-          if (user?.role === 'doctor') {
-            this.router.navigate(['/doctor/dashboard']);
-          } else if (user?.role === 'patient') {
-            this.router.navigate(['/patient/dashboard']);
-          } else {
-            this.router.navigate([this.returnUrl]);
-          }
-        },
-        error: error => {
-          this.error = error;
-          this.loading = false;
+        if (user.role === 'doctor') {
+          this.router.navigate(['/doctor-dashboard']);
+        } else {
+          this.router.navigate(['/patient-dashboard']);
         }
-      });
-  }
-
-  goBack() {
-    this.router.navigate(['/']);
+      } catch (error) {
+        console.error('Login failed:', error);
+        // TODO: Implement proper error handling
+      }
+    }
   }
 }

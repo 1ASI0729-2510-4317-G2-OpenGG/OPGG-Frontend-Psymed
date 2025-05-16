@@ -1,15 +1,54 @@
 import { Routes } from '@angular/router';
-import {AnalyticsDashboardComponent} from './Bc_Analytics/pages/analytics-dashboard/analytics-dashboard.component';
-
-import {BannerPageComponent} from './public/pages/banner-page/banner-page.component';
-
-import { MedicationListComponent } from './medic/components/medication-list/medication-list.component';
-import {AddMedicationComponent} from './medic/components/medication-add/medication-add.component';
+import { LoginComponent } from './auth/components/login/login.component';
+import { PatientDashboardComponent } from './patient-dashboard.component';
+import { DoctorDashboardComponent } from './psychiatrist/doctor-dashboard.component';
+import { UnauthorizedComponent } from './auth/components/unauthorized/unauthorized.component';
+import { authGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'dashboard-analitic/:id', component: AnalyticsDashboardComponent },
-  { path: 'medication-list', component: MedicationListComponent },
-  { path: 'medication-add', component: AddMedicationComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },  // Default route that redirects to HomeComponent
-  { path: 'home', component: BannerPageComponent },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent
+  },
+  {
+    path: 'patient-dashboard',
+    component: PatientDashboardComponent,
+    canActivate: [authGuard],
+    data: { role: 'patient' },
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./patient/patient.routes').then(m => m.PATIENT_ROUTES)
+      }
+    ]
+  },
+  {
+    path: 'doctor-dashboard',
+    component: DoctorDashboardComponent,
+    canActivate: [authGuard],
+    data: { role: 'doctor' },
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./psychiatrist/psychiatrist.routes').then(m => m.PSYCHIATRIST_ROUTES)
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];

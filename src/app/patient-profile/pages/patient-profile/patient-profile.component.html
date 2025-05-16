@@ -1,0 +1,54 @@
+<mat-toolbar class="toolbar"></mat-toolbar>
+
+<div class="patient-profile">
+  <!--Patient User Information-->
+  <mat-card class="left-section">
+    <form class="profile">
+      <div class="row">
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Name</mat-label>
+          <input matInput value="Juan Carlos" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>LastName</mat-label>
+          <input matInput value="Manrique Perez" />
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill" class="field">
+        <mat-label>Email</mat-label>
+        <input matInput value="ManriquePerez@gmail.com" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput value="pPerez23451" />
+      </mat-form-field>
+      <div class="row">
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Phone</mat-label>
+          <input matInput value="988 854 518" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Birthday (YYYY-MM-DD)</mat-label>
+          <input matInput value="2024-08-25" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>DNI</mat-label>
+          <input matInput value="45238650" />
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">Save Changes</button>
+    </form>
+  </mat-card>
+  <!--Patient States-->
+  <div class="right-section">
+    <div class="patient-photo">
+      <img src="assets/patient-photo.png" alt="foto del paciente" class="profile-img" />
+    </div>
+    <button mat-raised-button color="primary">Diagnostic</button>
+    <button mat-raised-button color="primary">Clinical History</button>
+    <button mat-raised-button color="primary">Terapy</button>
+    <button mat-raised-button color="primary">Notes</button>
+    <button mat-raised-button color="primary">Dates</button>
+  </div>
+</div>
+

@@ -13,5 +13,20 @@
     "pie-chart": {
       "title": "Número total de estados de ánimo"
     }
+  },
+  "medication-list": {
+    "title": "Lista de Medicamentos",
+    "loading": "Cargando medicamentos...",
+    "error": "Ocurrió un error al cargar los medicamentos.",
+    "no_data": "No se encontraron medicamentos.",
+    "name": "Nombre del Medicamento",
+    "dosage": "Dosificación",
+    "side_effects": "Efectos Secundarios (Coma separadas)",
+    "quantity": "Cantidad",
+    "start_date": "Fecha de Inicio",
+    "end_date": "Fecha de finalización",
+
+    "back_to_menu": "Volver al menú",
+    "add_medication": "Agregar medicamento"
   }
 }

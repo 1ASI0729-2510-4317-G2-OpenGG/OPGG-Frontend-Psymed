@@ -1,0 +1,34 @@
+
+{  "dashboard-analytics": {
+  "filter": {
+    "title": "Filters",
+    "year": "Year",
+    "month": "Month",
+    "button": "Filter"
+  },
+  "bar-chart": {
+    "title": "Biological Functions Average Statistics",
+    "month-average": "Month average"
+  },
+  "pie-chart": {
+    "title": "Total number of moods"
+  }
+},
+{
+  "medication-list": {
+    "title": "Medication List",
+    "loading": "Loading medications...",
+    "error": "An error occurred while loading medications.",
+    "no_data": "No medications found.",
+    "name": "Medication Name",
+    "dosage": "Dosage",
+    "side_effects": "Side Effects (comma separated)",
+    "quantity": "Quantity",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+
+    "back_to_menu": "Back to Menu",
+    "add_medication": "Add Medication"
+  }
+}
+

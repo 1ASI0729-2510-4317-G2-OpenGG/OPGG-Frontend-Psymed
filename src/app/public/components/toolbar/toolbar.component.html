@@ -1,0 +1,16 @@
+<ng-container [ngSwitch]="role">
+  <ng-container *ngSwitchCase="'1'">
+    <!-- Rol 1 -->
+    <button mat-button>Usuario</button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'2'">
+    <!-- Rol 2 -->
+    <button mat-button>Administrador</button>
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    <!-- Rol 0 por defecto -->
+    <button mat-button>Visitante</button>
+  </ng-container>
+</ng-container>

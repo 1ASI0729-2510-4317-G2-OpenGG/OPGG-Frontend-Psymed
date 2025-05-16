@@ -1,0 +1,29 @@
+.bar-chart-container {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .bar-chart-container {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .bar-chart-container {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem;
+  }
+}
+
+.bar-chart {
+  width: 100% !important;
+  height: auto !important;
+}

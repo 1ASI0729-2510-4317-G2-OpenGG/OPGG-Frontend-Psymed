@@ -33,6 +33,7 @@
   ],
   "professionals": [
     {
+      "id": "1",
       "idAccount": "1",
       "dni": "12345678",
       "name": "John",
@@ -43,12 +44,11 @@
       "address": "5555Main St, Lima, Peru",
       "birthday": "1981-05-10",
       "description": "Dr. John Doe is a psychiatrist with over 1 years of experience in the mental health field. A graduate of medicine, he specializes in mood disorders, anxiety, and psychotherapy.",
-      "image": "assets/img/images.jpg",
-      "id": "1"
+      "image": "assets/img/images.jpg"
     },
     {
       "id": "2",
-      "idAccount": 2,
+      "idAccount": "2",
       "name": "Juan",
       "lastName": "Perez",
       "dni": "87654321",
@@ -283,45 +283,6 @@
       "patientId": 1
     }
   ],
-  "prescriptions": [
-    {
-      "id": "1",
-      "medications": [
-        {
-          "id": 1,
-          "name": "Paracetamol",
-          "description": "Paracetamol, also known as acetaminophen, is a medication used to treat pain and fever. It is typically used for mild to moderate pain relief."
-        },
-        {
-          "id": 2,
-          "name": "Ibuprofen",
-          "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
-        }
-      ],
-      "description": "This prescription includes medications needed to treat your condition. Follow the instructions for use and do not forget to attend your follow-up appointments."
-    },
-    {
-      "id": "2",
-      "medications": [
-        {
-          "id": 4,
-          "name": "Cetirizine",
-          "description": "Cetirizine is an antihistamine used to relieve allergy symptoms such as sneezing, runny nose, and itchy eyes."
-        },
-        {
-          "id": 2,
-          "name": "Ibuprofen",
-          "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to reduce fever and relieve pain or inflammation."
-        },
-        {
-          "id": 3,
-          "name": "Amoxicillin",
-          "description": "Amoxicillin is a penicillin antibiotic used to treat a variety of bacterial infections."
-        }
-      ],
-      "description": "It is recommended that you follow this medication prescription to ensure optimal recovery. Take the time to understand the dosages and schedule of administration."
-    }
-  ],
   "medicalPrescriptions": [
     {
       "id": "1",
@@ -379,23 +340,6 @@
         ],
         "description": "It is recommended that you follow this medication prescription to ensure optimal recovery. Take the time to understand the dosages and schedule of administration."
       }
-    }
-  ],
-  "specialities": [
-    {
-      "id": "1",
-      "idProfessional": "1",
-      "name": "Psychiatrist"
-    },
-    {
-      "id": "2",
-      "idProfessional": "2",
-      "name": "Clinical Psychologist"
-    },
-    {
-      "id": "3",
-      "idProfessional": "1",
-      "name": "Psychiatric Nurse"
     }
   ],
   "clinicalHistories": [
@@ -546,38 +490,6 @@
       "soSadMood": "1",
       "soHappyMood": "2",
       "id": "bcdf"
-    }
-  ],
-  "task": [
-    {
-      "id": "1",
-      "idPatient": 1,
-      "idSession": 17,
-      "title": "Task tes",
-      "description": "This is a task description",
-      "status": 0,
-      "createdAt": "2021-06-01",
-      "updatedAt": "2021-06-01"
-    },
-    {
-      "id": "2",
-      "idPatient": 1,
-      "idSession": 17,
-      "title": "Task 2",
-      "description": "This is a task description",
-      "status": 0,
-      "createdAt": "2021-06-01",
-      "updatedAt": "2021-06-01"
-    },
-    {
-      "id": "3",
-      "idPatient": 3,
-      "idSession": 10,
-      "title": "Task 3",
-      "description": "This is a task description",
-      "status": 0,
-      "createdAt": "2021-06-01",
-      "updatedAt": "2021-06-01"
     }
   ],
   "patient-biological-analytic": [

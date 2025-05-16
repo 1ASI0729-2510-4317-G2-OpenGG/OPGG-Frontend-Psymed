@@ -1,0 +1,54 @@
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  margin-top: 3rem;
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  justify-content: center; /* Align items in the center */
+}
+
+/* Bar chart container alignment */
+.bar-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Responsive styling for medium screens */
+@media (max-width: 768px) {
+  .chart-container {
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .chart-container > * {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Ensure pie chart centers horizontally on medium screens */
+  .chart-container > app-pie-chart {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Additional adjustments for very small screens */
+@media (max-width: 480px) {
+  .chart-container {
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+
+  /* Ensure pie chart centers horizontally on very small screens */
+  .chart-container > app-pie-chart {
+    display: flex;
+    justify-content: center;
+  }
+}

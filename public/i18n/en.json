@@ -1,0 +1,15 @@
+{  "dashboard-analytics": {
+  "filter": {
+    "title": "Filters",
+    "year": "Year",
+    "month": "Month",
+    "button": "Filter"
+  },
+  "bar-chart": {
+    "title": "Biological Functions Average Statistics",
+    "month-average": "Month average"
+  },
+  "pie-chart": {
+    "title": "Total number of moods"
+  }
+}}

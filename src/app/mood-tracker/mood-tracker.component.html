@@ -1,0 +1,25 @@
+<div class="mood-container">
+  <h2>{{ 'moodTracker.TITLE' | translate }}</h2>
+  <div class="mood-list">
+    <div
+      *ngFor="let mood of moods"
+      (click)="selectMood(mood)"
+      [class.selected]="selectedMood?.value === mood.value"
+      class="mood-item"
+    >
+      <span class="icon">{{ mood.icon }}</span>
+    </div>
+  </div>
+  <button (click)="saveMood()" [disabled]="!selectedMood">
+    {{ 'moodTracker.SAVE' | translate }}
+  </button>
+  <button (click)="clearMoodHistory()" class="button-spacing" >{{ 'moodTracker.clearHistory' | translate }}</button>
+
+
+  <h3>{{ 'moodTracker.PREVIOUS_MOODS' | translate }}</h3>
+  <ul class="mood-history">
+    <li *ngFor="let history of moodHistory">
+      {{ history.date }} - {{ history.mood.label }}
+    </li>
+  </ul>
+</div>

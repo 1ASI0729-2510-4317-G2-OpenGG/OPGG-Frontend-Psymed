@@ -1,0 +1,34 @@
+<div class="biological-functions-container">
+  <h2>{{ 'biologicalFunctions.title' | translate }}</h2>
+
+  <div class="function-row" *ngFor="let func of functions">
+    <span class="icon">{{ func.icon }}</span>
+    <label>{{ func.label | translate }}</label>
+    <input
+      type="range"
+      [(ngModel)]="func.value"
+      min="1"
+      max="10"
+      step="1"
+    />
+    <span>{{ func.value }}</span>
+  </div>
+
+  <button (click)="save()">{{ 'biologicalFunctions.save' | translate }}</button>
+  <button (click)="clearHistory()" class="button-spacing">{{ 'biologicalFunctions.clearHistory' | translate }}</button>
+
+
+  <hr />
+
+  <h3>{{ 'biologicalFunctions.history' | translate }}</h3>
+  <div *ngIf="history.length === 0">
+    {{ 'biologicalFunctions.noHistory' | translate }}
+  </div>
+
+  <ul>
+    <li *ngFor="let entry of history">
+      <strong>{{ entry.date | date:'short' }}</strong> —
+      🍔 {{ entry.hunger }} | 😴 {{ entry.sleep }} | ⚡ {{ entry.energy }} | 💧 {{ entry.hydration }}
+    </li>
+  </ul>
+</div>

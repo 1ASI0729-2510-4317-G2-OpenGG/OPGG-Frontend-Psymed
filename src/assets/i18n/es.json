@@ -1,0 +1,26 @@
+{
+  "moodTracker": {
+    "TITLE": "¿Cómo te sientes hoy?",
+    "SAVE": "Guardar",
+    "PREVIOUS_MOODS": "Estados anteriores",
+    "clearHistory": "Borrar Historial"
+  },
+
+  "biologicalFunctions": {
+    "title": "Funciones Biológicas",
+    "hunger": "Hambre",
+    "sleep": "Sueño",
+    "energy": "Energía",
+    "hydration": "Hidratación",
+    "save": "Guardar",
+    "history": "Historial",
+    "noHistory": "No hay registros guardados aún.",
+    "clearHistory": "Borrar Historial"
+  },
+  "APP": {
+    "TITLE": "Seguimiento de Estado de Ánimo y Funciones Biológicas"
+  }
+
+
+
+}

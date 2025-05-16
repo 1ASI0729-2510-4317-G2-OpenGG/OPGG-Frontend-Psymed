@@ -1,0 +1,26 @@
+{
+  "moodTracker": {
+    "TITLE": "How do you feel today?",
+    "SAVE": "Save",
+    "PREVIOUS_MOODS": "Previous Moods",
+    "clearHistory": "Delete History"
+  },
+
+  "biologicalFunctions": {
+    "title": "Biological Functions",
+    "hunger": "Hunger",
+    "sleep": "Sleep",
+    "energy": "Energy",
+    "hydration": "Hydration",
+    "save": "Save",
+    "history": "History",
+    "noHistory": "There are no records saved",
+    "clearHistory":"Delete History"
+  },
+
+"APP": {
+    "TITLE": "Mood and Biological Functions Tracker"
+  }
+
+},
+

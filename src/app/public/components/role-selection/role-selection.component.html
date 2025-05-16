@@ -1,0 +1,28 @@
+<div class="role-selection-container">
+  <div class="role-selection-header">
+    <h1>SPYMED</h1>
+    <p>Seleccione su tipo de usuario para continuar</p>
+  </div>
+
+  <div class="role-cards">
+    <mat-card class="role-card" (click)="selectRole('doctor')">
+      <mat-card-content>
+        <div class="role-icon">
+          <mat-icon>local_hospital</mat-icon>
+        </div>
+        <h2>Médico</h2>
+        <p>Acceda a historiales médicos, citas y gestión de pacientes</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="role-card" (click)="selectRole('patient')">
+      <mat-card-content>
+        <div class="role-icon">
+          <mat-icon>person</mat-icon>
+        </div>
+        <h2>Paciente</h2>
+        <p>Acceda a sus citas, medicamentos y registros médicos</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,8 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using RepairLink_Backend.LocationRouting.Application.Internal.CommandServices;
+using RepairLink_Backend.LocationRouting.Application.Internal.QueryServices;
+using RepairLink_Backend.LocationRouting.Domain.Repositories;
+using RepairLink_Backend.LocationRouting.Domain.Services;
+using RepairLink_Backend.LocationRouting.Infrastructure.Repositories;
 using RepairLink_Backend.Shared.Domain.Repositories;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Configuration;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Repositories;
 using RepairLink_Backend.Shared.Interfaces.ASP.Configuration;
+using RepairLink_Backend.UserManagement.Application.Internal.CommandServices;
+using RepairLink_Backend.UserManagement.Application.Internal.QueryServices;
+using RepairLink_Backend.UserManagement.Domain.Repositories;
+using RepairLink_Backend.UserManagement.Domain.Services;
+using RepairLink_Backend.UserManagement.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +58,17 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 /*builder.Services.AddScoped<IFavoriteSourceRepository, FavoriteSourceRepository>();
 builder.Services.AddScoped<IFavoriteSourceQueryService, FavoriteSourceQueryService>();
 builder.Services.AddScoped<IFavoriteSourceCommandService, FavoriteSourceCommandService>();*/
+
+//Users BC Injection Configuration
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersQueryService, UsersQueryService>();
+builder.Services.AddScoped<IUsersCommandService, UsersCommandService>();
+
+//Addresses BC Injection Configuration
+builder.Services.AddScoped<IAddressesRepository, AddressesRepository>();
+builder.Services.AddScoped<IAddressesQueryService, AddressQueryService>();
+builder.Services.AddScoped<IAddressesCommandService, AddressCommandService>();
+
 
 var app = builder.Build();
 

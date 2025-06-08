@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
+using RepairLink_Backend.UserManagement.Domain.Model.Aggregates;
 
 namespace RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Configuration;
 
@@ -24,6 +25,14 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<FavoriteSource>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<FavoriteSource>().Property(f => f.SourceId).IsRequired();
         builder.Entity<FavoriteSource>().Property(f => f.NewsApiKey).IsRequired();*/
+        
+        builder.Entity<Users>().HasKey(f => f.Id);
+        builder.Entity<Users>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Users>().Property(f => f.name).IsRequired();
+        builder.Entity<Users>().Property(f => f.email).IsRequired();
+        builder.Entity<Users>().Property(f => f.password_hash).IsRequired();
+        builder.Entity<Users>().Property(f => f.role).IsRequired();
+        builder.Entity<Users>().Property(f => f.address_id).IsRequired();
 
         builder.UseSnakeCaseNamingConvention();
     }

@@ -22,7 +22,6 @@
     <ItemGroup>
       <Folder Include="Availability\" />
       <Folder Include="Booking\" />
-      <Folder Include="LocationRouting\" />
       <Folder Include="Notification\" />
       <Folder Include="Payment\" />
       <Folder Include="ServiceCatalog\" />

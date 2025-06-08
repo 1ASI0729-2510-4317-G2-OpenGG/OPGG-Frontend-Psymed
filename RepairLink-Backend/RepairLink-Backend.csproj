@@ -26,7 +26,6 @@
       <Folder Include="Notification\" />
       <Folder Include="Payment\" />
       <Folder Include="ServiceCatalog\" />
-      <Folder Include="UserManagement\" />
     </ItemGroup>
 
 </Project>

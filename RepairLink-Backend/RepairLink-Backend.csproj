@@ -24,7 +24,7 @@
       <Folder Include="Booking\" />
       <Folder Include="Notification\" />
       <Folder Include="Payment\" />
-      <Folder Include="ServiceCatalog\" />
+      <Folder Include="ServiceCatalog\Application\" />
     </ItemGroup>
 
 </Project>

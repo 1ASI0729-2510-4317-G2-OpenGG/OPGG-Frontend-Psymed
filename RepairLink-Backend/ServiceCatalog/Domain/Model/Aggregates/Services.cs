@@ -22,6 +22,6 @@ public partial class Services
     public int Id { get; }
     public string name { get; private set; }
     public string description { get; private set; }
-    public decimal baseprice { get; private set; }
+    public double baseprice { get; private set; }
     
 }

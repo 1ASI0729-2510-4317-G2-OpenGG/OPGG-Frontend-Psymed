@@ -1,4 +1,5 @@
-﻿using RepairLink_Backend.UserManagement.Domain.Model.Commands;
+﻿using RepairLink_Backend.LocationRouting.Domain.Model.Aggregates;
+using RepairLink_Backend.UserManagement.Domain.Model.Commands;
 
 namespace RepairLink_Backend.UserManagement.Domain.Model.Aggregates;
 
@@ -28,4 +29,8 @@ public partial class Users
     public string password_hash { get; private set; }
     public string role { get; private set; }
     public int address_id { get; private set; }
+    
+    //Navigation Property
+    public virtual Addresses Addresses { get; private set; } = null!;
+    public virtual ICollection<Notification.Domain.Model.Aggregates.Notification> Notification { get; private set; } = new List<Notification.Domain.Model.Aggregates.Notification>();
 }

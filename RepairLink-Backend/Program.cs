@@ -4,6 +4,16 @@ using RepairLink_Backend.LocationRouting.Application.Internal.QueryServices;
 using RepairLink_Backend.LocationRouting.Domain.Repositories;
 using RepairLink_Backend.LocationRouting.Domain.Services;
 using RepairLink_Backend.LocationRouting.Infrastructure.Repositories;
+using RepairLink_Backend.Notification.Application.Internal.CommandServices;
+using RepairLink_Backend.Notification.Application.Internal.QueryServices;
+using RepairLink_Backend.Notification.Domain.Repositories;
+using RepairLink_Backend.Notification.Domain.Services;
+using RepairLink_Backend.Notification.Infrastructure.Repositories;
+using RepairLink_Backend.ServiceCatalog.Application.Internal.CommandServices;
+using RepairLink_Backend.ServiceCatalog.Application.Internal.QueryServices;
+using RepairLink_Backend.ServiceCatalog.Domain.Repositories;
+using RepairLink_Backend.ServiceCatalog.Domain.Services;
+using RepairLink_Backend.ServiceCatalog.Infrastructure.Repositories;
 using RepairLink_Backend.Shared.Domain.Repositories;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Configuration;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Repositories;
@@ -54,11 +64,6 @@ else if (builder.Environment.IsProduction())
 // Shared Bounded Context Injection Configuration
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// News Bounded Context Injection Configuration
-/*builder.Services.AddScoped<IFavoriteSourceRepository, FavoriteSourceRepository>();
-builder.Services.AddScoped<IFavoriteSourceQueryService, FavoriteSourceQueryService>();
-builder.Services.AddScoped<IFavoriteSourceCommandService, FavoriteSourceCommandService>();*/
-
 //Users BC Injection Configuration
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersQueryService, UsersQueryService>();
@@ -69,6 +74,15 @@ builder.Services.AddScoped<IAddressesRepository, AddressesRepository>();
 builder.Services.AddScoped<IAddressesQueryService, AddressQueryService>();
 builder.Services.AddScoped<IAddressesCommandService, AddressCommandService>();
 
+//Service BC Injection Configuration
+builder.Services.AddScoped<IServicesRepository, ServicesRepository>();
+builder.Services.AddScoped<IServicesQueryService, ServicesQueryService>();
+builder.Services.AddScoped<IServicesCommandService, ServicesCommandService>();
+
+//Notification BC Injection Configuration
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<INotificationsQueryService, NotificationQueryService>();
+builder.Services.AddScoped<INotificationCommandService, NotificationCommandService>();
 
 var app = builder.Build();
 

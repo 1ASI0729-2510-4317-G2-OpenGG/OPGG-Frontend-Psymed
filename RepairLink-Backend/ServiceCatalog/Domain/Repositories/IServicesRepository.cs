@@ -5,8 +5,8 @@ namespace RepairLink_Backend.ServiceCatalog.Domain.Repositories;
 
 public interface IServicesRepository : IBaseRepository<Model.Aggregates.Services>
 {
-    Task<IEnumerable<Model.Aggregates.Services>> FindByNoParam();
+    Task<IEnumerable<Model.Aggregates.Services>> FindByNoParamAsync();
     
-    Task<Model.Aggregates.Services?> FindByName(string name);
+    Task<Model.Aggregates.Services?> FindByNameAsync(string name);
 
 }

@@ -32,4 +32,7 @@ public partial class Addresses
     public string zipCode { get; private set; }
     public int lat { get; private set; }
     public int lng { get; private set; }
+    
+    //Navigation property for reverse lookup
+    public virtual ICollection<Users> Users { get; set; } = new List<Users>();
 }

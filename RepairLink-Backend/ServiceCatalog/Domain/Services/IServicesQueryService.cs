@@ -7,8 +7,8 @@ public interface IServicesQueryService
 {
     Task<IEnumerable<Model.Aggregates.Services>> Handle(GetAllServicesQuery query);
     
-    Task<Model.Aggregates.Services> Handle(GetServiceByNameQuery query);
+    Task<Model.Aggregates.Services?> Handle(GetServiceByNameQuery query);
     
-    Task<Model.Aggregates.Services> Handle(GetServiceByIdQuery query);
+    Task<Model.Aggregates.Services?> Handle(GetServiceByIdQuery query);
 
 }

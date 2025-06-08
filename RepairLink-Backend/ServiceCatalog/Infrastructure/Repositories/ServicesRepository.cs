@@ -9,12 +9,12 @@ namespace RepairLink_Backend.ServiceCatalog.Infrastructure.Repositories;
 public class ServicesRepository(AppDbContext context) 
     : BaseRepository<Services>(context), IServicesRepository
 {
-    public async Task<IEnumerable<Services>> FindByNoParam()
+    public async Task<IEnumerable<Services>> FindByNoParamAsync()
     {
         return await Context.Set<Services>().ToListAsync();
     }
 
-    public async Task<Services?> FindByName(string name)
+    public async Task<Services?> FindByNameAsync(string name)
     {
         return await Context.Set<Services>().FirstOrDefaultAsync(f => f.name == name);
     }

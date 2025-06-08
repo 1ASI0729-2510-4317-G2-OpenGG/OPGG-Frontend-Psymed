@@ -5,6 +5,6 @@ namespace RepairLink_Backend.ServiceCatalog.Domain.Services;
 public interface IServicesCommandService
 {
 
-    Task<Model.Aggregates.Services> Handle(CreateServicesCommand command);
+    Task<Model.Aggregates.Services?> Handle(CreateServicesCommand command);
 
 }

@@ -22,9 +22,7 @@
     <ItemGroup>
       <Folder Include="Availability\" />
       <Folder Include="Booking\" />
-      <Folder Include="Notification\" />
       <Folder Include="Payment\" />
-      <Folder Include="ServiceCatalog\Application\" />
     </ItemGroup>
 
 </Project>

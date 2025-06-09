@@ -30,7 +30,7 @@ public class AvailabilityDaysController(
     public async Task<ActionResult> CreateAvailabilityDayResource([FromBody] CreateAvailabilityDayResource resource)
     {
         var createAvailabilityDaysCommand =
-            CreateAvailabilityCommandFromResourceAssembler.ToCommandFromResource(resource);
+            CreateAvailabilityDayCommandFromResourceAssembler.ToCommandFromResource(resource);
         var result = await availabilityDayCommandService.Handle(createAvailabilityDaysCommand);
         if (result is null) return BadRequest();
         return CreatedAtAction(nameof(GetAvailabilityDayId), new { id = result.Id },
@@ -46,7 +46,7 @@ public class AvailabilityDaysController(
     [SwaggerResponse(200, "The Availability Day was FOUND", typeof(AvailabilityDayResource))]
     public async Task<ActionResult> GetAvailabilityDayId(int id)
     {
-        var getAvailabilityDayByIdQuery = new GetAvailabilityDayByIdQuery(id);
+        var getAvailabilityDayByIdQuery = new GetAvailabilityDayByIdQueryQuery(id);
         var result = await availabilityDayQueryService.Handle(getAvailabilityDayByIdQuery);
         if (result is null) return NotFound();
         var resource = AvailabilityDayResourceFromEntityAssembler.ToResourceFromEntity(result);

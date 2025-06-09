@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
+using RepairLink_Backend.Availability.Domain.Model.Aggregates;
 using RepairLink_Backend.LocationRouting.Domain.Model.Aggregates;
 using RepairLink_Backend.ServiceCatalog.Domain.Model.Aggregates;
 using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
@@ -58,11 +59,35 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Notification.Domain.Model.Aggregates.Notification>().Property(f =>f.type).IsRequired();
         builder.Entity<Notification.Domain.Model.Aggregates.Notification>().Property(f => f.status).IsRequired();
         
+        //Config for Availability
+        builder.Entity<AvailabilityDays>().HasKey(f => f.Id);
+        builder.Entity<AvailabilityDays>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<AvailabilityDays>().Property(f => f.SlotId).IsRequired();
+        builder.Entity<AvailabilityDays>().Property(f => f.DayOfWeek).IsRequired();
+        builder.Entity<AvailabilitySlots>().HasKey(f => f.Id);
+        builder.Entity<AvailabilitySlots>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<AvailabilitySlots>().Property(f => f.TechnicianId).IsRequired();
+        builder.Entity<AvailabilitySlots>().Property(f => f.StartTime).IsRequired();
+        builder.Entity<AvailabilitySlots>().Property(f => f.EndTime).IsRequired();
+        builder.Entity<AvailabilitySlots>().Property(f => f.IsRecurring).IsRequired();
+       
         //Relationships
         builder.Entity<Users>()
             .HasOne(u => u.Addresses)
             .WithMany(a => a.Users)
             .HasForeignKey(u => u.address_id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Notification.Domain.Model.Aggregates.Notification>()
+            .HasOne(u => u.Users)
+            .WithMany(a => a.Notification)
+            .HasForeignKey(u => u.recipient_id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<AvailabilityDays>()
+            .HasOne(u => u.AvailabilitySlotsSlots)
+            .WithMany(a => a.AvailabilityDaysCollection)
+            .HasForeignKey(u => u.SlotId)
             .OnDelete(DeleteBehavior.Restrict);
         
         builder.UseSnakeCaseNamingConvention();

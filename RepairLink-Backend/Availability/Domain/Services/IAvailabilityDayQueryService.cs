@@ -7,8 +7,8 @@ public interface IAvailabilityDayQueryService
 {
     Task<IEnumerable<AvailabilityDays>> Handle(GetAllAvailabilityDaysBySlotIdQuery query);
 
-    Task<AvailabilityDays?> Handle(GetAvailabilityDayBySlotIdAndDayOfWeek query);
+    Task<AvailabilityDays?> Handle(GetAvailabilityDayBySlotIdAndDayOfWeekQuery query);
     
-    Task<AvailabilityDays?> Handle(GetAvailabilityDayByIdQuery query);
+    Task<AvailabilityDays?> Handle(GetAvailabilityDayByIdQueryQuery queryQuery);
 
 }

@@ -3,7 +3,7 @@ using RepairLink_Backend.Availability.Interfaces.REST.Resources;
 
 namespace RepairLink_Backend.Availability.Interfaces.REST.Transform;
 
-public static class CreateAvailabilityCommandFromResourceAssembler
+public static class CreateAvailabilityDayCommandFromResourceAssembler
 {
     public static CreateAvailabilityDayCommand ToCommandFromResource(CreateAvailabilityDayResource resource)
     {

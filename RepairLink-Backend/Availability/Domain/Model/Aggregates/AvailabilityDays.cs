@@ -22,4 +22,7 @@ public partial class AvailabilityDays
     public int SlotId { get; private set;  }
     public string DayOfWeek { get; private set; }
     
+    //Navigation Property
+    public virtual AvailabilitySlots AvailabilitySlotsSlots { get; private set; } = null!;
+
 }

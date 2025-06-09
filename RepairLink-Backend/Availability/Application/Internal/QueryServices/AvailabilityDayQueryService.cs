@@ -14,13 +14,13 @@ public class AvailabilityDayQueryService(IAvailabilityDayRepository availability
         return await availabilityDayRepository.FindBySlotIdAsync(query.SlotId);
     }
 
-    public async Task<AvailabilityDays?> Handle(GetAvailabilityDayBySlotIdAndDayOfWeek query)
+    public async Task<AvailabilityDays?> Handle(GetAvailabilityDayBySlotIdAndDayOfWeekQuery query)
     {
         return await availabilityDayRepository.FindBySlotIdAndDayOfWeekAsync(query.SlotId, query.DayOfWeek);
     }
 
-    public async Task<AvailabilityDays?> Handle(GetAvailabilityDayByIdQuery query)
+    public async Task<AvailabilityDays?> Handle(GetAvailabilityDayByIdQueryQuery queryQuery)
     {
-        return await availabilityDayRepository.FindByIdAsync(query.Id);
+        return await availabilityDayRepository.FindByIdAsync(queryQuery.Id);
     }
 }

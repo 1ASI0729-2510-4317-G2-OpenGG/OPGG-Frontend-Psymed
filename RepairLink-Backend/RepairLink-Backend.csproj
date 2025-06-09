@@ -20,8 +20,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Availability\" />
-      <Folder Include="Booking\" />
+      <Folder Include="Booking\Application\" />
+      <Folder Include="Booking\Domain\Model\" />
+      <Folder Include="Booking\Domain\Repositories\" />
+      <Folder Include="Booking\Domain\Services\" />
+      <Folder Include="Booking\Infrastructure\" />
+      <Folder Include="Booking\Interfaces\" />
       <Folder Include="Payment\" />
     </ItemGroup>
 

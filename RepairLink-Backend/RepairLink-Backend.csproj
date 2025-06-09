@@ -19,14 +19,4 @@
         <PackageReference Include="Swashbukle.AspNetCore" Version="2.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Booking\Application\" />
-      <Folder Include="Booking\Domain\Model\" />
-      <Folder Include="Booking\Domain\Repositories\" />
-      <Folder Include="Booking\Domain\Services\" />
-      <Folder Include="Booking\Infrastructure\" />
-      <Folder Include="Booking\Interfaces\" />
-      <Folder Include="Payment\" />
-    </ItemGroup>
-
 </Project>

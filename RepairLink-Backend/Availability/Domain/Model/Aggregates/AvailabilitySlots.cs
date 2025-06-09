@@ -1,4 +1,5 @@
 ﻿using RepairLink_Backend.Availability.Domain.Model.Commands;
+using RepairLink_Backend.UserManagement.Domain.Model.Aggregates;
 
 namespace RepairLink_Backend.Availability.Domain.Model.Aggregates;
 
@@ -28,5 +29,5 @@ public partial class AvailabilitySlots
     
     //Navigation Property
     public virtual ICollection<AvailabilityDays> AvailabilityDaysCollection { get; private set; } = new List<AvailabilityDays>();
-    
+    public virtual Users User { get; private set; } = null!;
 }

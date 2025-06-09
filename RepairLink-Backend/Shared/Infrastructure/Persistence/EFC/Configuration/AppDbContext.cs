@@ -71,6 +71,29 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<AvailabilitySlots>().Property(f => f.EndTime).IsRequired();
         builder.Entity<AvailabilitySlots>().Property(f => f.IsRecurring).IsRequired();
        
+        //Config for Payment
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().HasKey(f => f.Id);
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property( f =>f.BookingId).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(f => f.Amount).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(f => f.PaymentMethod).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(f => f.Status).IsRequired();
+        
+        //Config for Booking
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().HasKey(f => f.Id);
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.CustomerId).IsRequired();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.TechnicianId).IsRequired();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.ServiceId).IsRequired();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.AddressId).IsRequired();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.Status).IsRequired();
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>().Property(f => f.ScheduledTime).IsRequired();
+
+
+
+
+
+        
         //Relationships
         builder.Entity<Users>()
             .HasOne(u => u.Addresses)
@@ -89,6 +112,31 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .WithMany(a => a.AvailabilityDaysCollection)
             .HasForeignKey(u => u.SlotId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<AvailabilitySlots>()
+            .HasOne(u => u.User)
+            .WithMany(a => a.AvailabilitySlots)
+            .HasForeignKey(u => u.TechnicianId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>()
+            .HasOne(u => u.Booking)
+            .WithOne(a => a.Payment)
+            .HasForeignKey<Payment.Domain.Model.Aggregates.Payment>(u => u.BookingId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>()
+            .HasOne(u => u.Customer)
+            .WithMany(a => a.Bookings)
+            .HasForeignKey(u => u.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>()
+            .HasOne(u => u.Technician)
+            .WithMany(a => a.Bookings)
+            .HasForeignKey(u => u.TechnicianId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
         
         builder.UseSnakeCaseNamingConvention();
     }

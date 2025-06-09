@@ -24,4 +24,7 @@ public partial class Services
     public string description { get; private set; }
     public double baseprice { get; private set; }
     
+    
+    //Navigation Property
+    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> Bookings { get; private set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
 }

@@ -35,4 +35,5 @@ public partial class Addresses
     
     //Navigation property for reverse lookup
     public virtual ICollection<Users> Users { get; set; } = new List<Users>();
+    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> Bookings { get; set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
 }

@@ -6,7 +6,7 @@ using RepairLink_Backend.Shared.Infrastructure.Persistence.EFC.Repositories;
 
 namespace RepairLink_Backend.Availability.Infrastructure.Repositories;
 
-public class AvailabilityRepository(AppDbContext context) 
+public class AvailabilityDayRepository(AppDbContext context) 
     :BaseRepository<AvailabilityDays>(context), IAvailabilityDayRepository
 {
     public async Task<IEnumerable<AvailabilityDays>> FindBySlotIdAsync(int slotId)

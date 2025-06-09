@@ -1,4 +1,5 @@
-﻿using RepairLink_Backend.LocationRouting.Domain.Model.Aggregates;
+﻿using RepairLink_Backend.Availability.Domain.Model.Aggregates;
+using RepairLink_Backend.LocationRouting.Domain.Model.Aggregates;
 using RepairLink_Backend.UserManagement.Domain.Model.Commands;
 
 namespace RepairLink_Backend.UserManagement.Domain.Model.Aggregates;
@@ -33,4 +34,6 @@ public partial class Users
     //Navigation Property
     public virtual Addresses Addresses { get; private set; } = null!;
     public virtual ICollection<Notification.Domain.Model.Aggregates.Notification> Notification { get; private set; } = new List<Notification.Domain.Model.Aggregates.Notification>();
+    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> Bookings { get; private set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
+    public virtual ICollection<AvailabilitySlots> AvailabilitySlots { get; private set; } = new List<AvailabilitySlots>();
 }

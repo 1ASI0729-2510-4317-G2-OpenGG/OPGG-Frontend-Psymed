@@ -2,57 +2,22 @@ export interface Patient {
   id: string;
   name: string;
   lastName: string;
-  age: number;
-  dni: string;
-  birthDate: string;
   email: string;
   phone: string;
+  birthDate: string;
+  dni: string;
   photoUrl?: string;
-  status?: 'active' | 'pending' | 'inactive';
-  isFavorite?: boolean;
-  diagnosis?: string;
-  diagnosisDate?: string;
-  medication?: string;
+  notes?: Note[];
   appointments?: Appointment[];
-  notes?: Array<{
-    text: string;
-    date: string;
-  }>;
+  diagnoses?: Diagnosis[];
+  medications?: Medication[];
+  favorite?: boolean;
 }
 
-export interface Medication {
+export interface Note {
   id: string;
-  name: string;
-  dosage: string;
-  startDate: string;
-  endDate: string;
-  schedule: {
-    morning: boolean;
-    afternoon: boolean;
-    night: boolean;
-  };
-  instructions: string;
-  status: 'active' | 'completed' | 'cancelled';
-}
-
-export interface Diagnosis {
-  id: string;
-  condition: string;
-  diagnosisDate: string;
-  description: string;
-  severity: 'mild' | 'moderate' | 'severe';
-  symptoms: string[];
-  treatment: string;
-  notes: string;
-  tasks: DiagnosisTask[];
-}
-
-export interface DiagnosisTask {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  completed: boolean;
+  text: string;
+  date: string;
 }
 
 export interface Appointment {
@@ -60,13 +25,28 @@ export interface Appointment {
   date: string;
   time: string;
   reason: string;
-  status: 'scheduled' | 'completed' | 'cancelled';
-  notes?: string;
 }
 
-export interface Note {
+export interface DiagnosisTask {
   id: string;
-  date: string;
-  content: string;
-  type: 'general' | 'progress' | 'treatment';
+  title: string;
+  completed: boolean;
+}
+
+export interface Diagnosis {
+  id: string;
+  description: string;
+  diagnosisDate: string;
+  tasks: DiagnosisTask[];
+}
+
+export interface Medication {
+  id: string;
+  name: string;
+  dosage: string;
+  frequency: number;
+  frequencyUnit: string;
+  duration: string;
+  instructions?: string;
+  startDate: string;
 }

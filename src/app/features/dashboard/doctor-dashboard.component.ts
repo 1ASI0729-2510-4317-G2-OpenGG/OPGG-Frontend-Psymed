@@ -100,26 +100,40 @@ interface DashboardAppointment {
       <div class="patients-section">
         <div class="patients-header">
           <h2>Mis Pacientes</h2>
-          <button mat-raised-button color="primary" (click)="addPatient()">
-            <mat-icon>person_add</mat-icon>
-            Add Patient
-          </button>
+          <div class="header-actions">
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Buscar paciente</mat-label>
+              <input matInput [(ngModel)]="searchTerm" (input)="onSearch($event)" placeholder="Buscar por nombre, DNI o email">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addPatient()">
+              <mat-icon>add</mat-icon>
+              Nuevo Paciente
+            </button>
+          </div>
         </div>
 
-        <div class="patients-list">
-          <div class="patient-card" *ngFor="let patient of patients">
-            <div class="status-indicator" [class]="patient.status || 'active'"></div>
-            <div class="patient-avatar">
-              <img [src]="patient.photoUrl || 'assets/avatars/default-avatar.png'" [alt]="patient.name">
-            </div>
-            <div class="patient-info">
-              <h3>{{patient.name}} {{patient.lastName}}</h3>
-              <p>{{patient.age}} años</p>
-              <p>{{patient.phone}} | {{patient.email}}</p>
+        <div class="patients-grid">
+          <div class="patient-card" *ngFor="let patient of filteredPatients">
+            <div class="patient-header">
+              <div class="patient-info">
+                <div class="patient-avatar">
+                  <img [src]="patient.photoUrl || 'assets/avatars/default-avatar.png'" [alt]="patient.name">
+                </div>
+                <div class="patient-basic-info">
+                  <h3>{{patient.name}} {{patient.lastName}}</h3>
+                  <p>DNI: {{patient.dni}}</p>
+                  <p>{{calculateAge(patient.birthDate)}} años</p>
+                </div>
+              </div>
+              <button mat-icon-button class="favorite-button" (click)="toggleFavorite(patient)">
+                <mat-icon [class.favorite]="patient.favorite">star</mat-icon>
+              </button>
             </div>
             <div class="patient-actions">
-              <button mat-icon-button color="primary" (click)="viewPatientDetails(patient.id)">
+              <button mat-button color="primary" (click)="viewPatientDetails(patient)">
                 <mat-icon>visibility</mat-icon>
+                Ver detalles
               </button>
             </div>
           </div>
@@ -236,55 +250,81 @@ interface DashboardAppointment {
         color: #0a192f;
         font-size: 1.5rem;
       }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      .mat-mdc-form-field {
+        margin-bottom: -1.34375em;
+      }
 
       button {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        height: 56px;
+        margin-top: -8px;
+        padding: 0 24px;
+        font-size: 16px;
+
+        mat-icon {
+          margin-right: 8px;
+          font-size: 24px;
+          height: 24px;
+          width: 24px;
+        }
       }
     }
 
-    .patients-list {
+    .search-field {
+      width: 300px;
+
+      ::ng-deep {
+        .mat-mdc-text-field-wrapper {
+          height: 56px;
+        }
+
+        .mat-mdc-form-field-flex {
+          height: 56px;
+        }
+
+        .mdc-text-field--outlined {
+          --mdc-outlined-text-field-container-height: 56px;
+        }
+      }
+    }
+
+    .patients-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .patient-card {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 1rem;
       background: white;
       border-radius: 12px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
       gap: 1rem;
+    }
 
-      .status-indicator {
-        position: absolute;
-        top: 1rem;
-        left: 0;
-        width: 4px;
-        height: calc(100% - 2rem);
-        border-radius: 2px;
+    .patient-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
 
-        &.active {
-          background: #4caf50;
-        }
-
-        &.pending {
-          background: #ff9800;
-        }
-
-        &.inactive {
-          background: #9e9e9e;
-        }
-      }
+    .patient-info {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
     }
 
     .patient-avatar {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       overflow: hidden;
 
@@ -295,25 +335,43 @@ interface DashboardAppointment {
       }
     }
 
-    .patient-info {
-      flex: 1;
-
+    .patient-basic-info {
       h3 {
-        margin: 0;
+        margin: 0 0 0.5rem;
         color: #0a192f;
         font-size: 1.1rem;
       }
 
       p {
-        margin: 0.2rem 0;
+        margin: 0;
         color: #64748b;
         font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
+
+    .favorite-button {
+      .mat-icon {
+        color: #cbd5e1;
+        transition: color 0.3s ease;
+
+        &.favorite {
+          color: #f59e0b;
+        }
       }
     }
 
     .patient-actions {
       display: flex;
-      gap: 0.5rem;
+      justify-content: flex-end;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1rem;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
 
     @media (max-width: 1200px) {
@@ -322,13 +380,18 @@ interface DashboardAppointment {
       }
     }
 
-    @media (max-width: 600px) {
-      .dashboard-container {
-        padding: 1rem;
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .patients-list {
-        grid-template-columns: 1fr;
+      .header-actions {
+        flex-direction: column;
+      }
+
+      .search-field {
+        width: 100%;
       }
     }
 
@@ -405,6 +468,8 @@ export class DoctorDashboardComponent implements OnInit {
   ];
 
   patients: Patient[] = [];
+  filteredPatients: Patient[] = [];
+  searchTerm: string = '';
   occupiedDates: Date[] = [
     new Date('2024-03-20'),
     new Date('2024-03-22'),
@@ -421,10 +486,7 @@ export class DoctorDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Subscribe to patients updates
-    this.patientService.getPatients().subscribe(patients => {
-      this.patients = patients;
-    });
+    this.loadPatients();
 
     // Ensure calendar stays open
     setTimeout(() => {
@@ -435,11 +497,37 @@ export class DoctorDashboardComponent implements OnInit {
     });
   }
 
+  loadPatients() {
+    this.patientService.getPatients().subscribe(patients => {
+      this.patients = patients;
+      this.filterPatients();
+    });
+  }
+
+  filterPatients() {
+    if (!this.searchTerm.trim()) {
+      this.filteredPatients = [...this.patients];
+      return;
+    }
+
+    const searchTermLower = this.searchTerm.toLowerCase();
+    this.filteredPatients = this.patients.filter(patient =>
+      patient.name.toLowerCase().includes(searchTermLower) ||
+      patient.lastName.toLowerCase().includes(searchTermLower) ||
+      patient.dni.toLowerCase().includes(searchTermLower) ||
+      patient.email.toLowerCase().includes(searchTermLower)
+    );
+  }
+
+  onSearch(event: Event) {
+    this.searchTerm = (event.target as HTMLInputElement).value;
+    this.filterPatients();
+  }
+
   addPatient() {
     const dialogRef = this.dialog.open(AddPatientModalComponent, {
       width: '600px',
-      maxHeight: '90vh',
-      panelClass: 'add-patient-dialog'
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -449,8 +537,8 @@ export class DoctorDashboardComponent implements OnInit {
     });
   }
 
-  viewPatientDetails(patientId: string) {
-    this.router.navigate(['/dashboard/medico/paciente', patientId]);
+  viewPatientDetails(patient: Patient) {
+    this.router.navigate(['/dashboard/medico/paciente', patient.id]);
   }
 
   dateFilter = (date: Date | null): boolean => {
@@ -473,8 +561,22 @@ export class DoctorDashboardComponent implements OnInit {
     console.log('Abrir calendario');
   }
 
-  toggleFavorite(patient: Patient) {
-    patient.isFavorite = !patient.isFavorite;
+  calculateAge(birthDate: string): number {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
+
+  toggleFavorite(patient: Patient): void {
+    patient.favorite = !patient.favorite;
+    this.patientService.updatePatient(patient);
   }
 }
 

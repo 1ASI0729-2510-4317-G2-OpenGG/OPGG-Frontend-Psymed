@@ -276,31 +276,22 @@ export class AddPatientModalComponent {
   onSubmit(): void {
     if (this.patientForm.valid) {
       const formValue = this.patientForm.value;
-      const [firstName, ...lastNameParts] = formValue.name.trim().split(' ');
-
-      // Calculate age from birthDate
-      const birthDate = new Date(formValue.birthDate);
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      const newPatient: Patient = {
+      const patient: Patient = {
         id: Math.random().toString(36).substr(2, 9),
-        name: firstName,
-        lastName: lastNameParts.join(' '),
+        name: formValue.name,
+        lastName: formValue.lastName,
         email: formValue.email,
         phone: formValue.phone,
+        birthDate: formValue.birthDate.toISOString(),
         dni: formValue.dni,
-        birthDate: formValue.birthDate,
-        age: age,
-        photoUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${formValue.dni}`,
+        photoUrl: '',
+        favorite: false,
         notes: [],
-        appointments: []
+        appointments: [],
+        diagnoses: [],
+        medications: []
       };
-      this.dialogRef.close(newPatient);
+      this.dialogRef.close(patient);
     }
   }
 

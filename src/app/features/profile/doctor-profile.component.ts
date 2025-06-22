@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="profile-left-column">
           <div class="profile-header">
             <div class="profile-avatar">
-              <img src="assets/avatars/doctor-1.png" alt="Profile photo">
+              <img src="../../assets/avatars/doctor-1.png" alt="Profile photo">
             </div>
             <div class="profile-info">
               <h1>{{profile.name}} {{profile.lastName}}</h1>

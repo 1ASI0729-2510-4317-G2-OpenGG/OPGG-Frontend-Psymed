@@ -12,9 +12,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { PatientService } from '../services/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Patient } from '../domain/patient.model';
+import { Patient, DiagnosisTask } from '../domain/patient.model';
 import { AddNoteModalComponent } from './add-note-modal/add-note-modal.component';
 import { AddAppointmentModalComponent } from './add-appointment-modal/add-appointment-modal.component';
+import { AddDiagnosisModalComponent } from './add-diagnosis-modal/add-diagnosis-modal.component';
+import { AddMedicationModalComponent } from './add-medication-modal/add-medication-modal.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-patient-details',
@@ -31,7 +34,8 @@ import { AddAppointmentModalComponent } from './add-appointment-modal/add-appoin
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    NavbarComponent
+    NavbarComponent,
+    MatCheckboxModule
   ],
   template: `
     <app-navbar></app-navbar>
@@ -75,31 +79,77 @@ import { AddAppointmentModalComponent } from './add-appointment-modal/add-appoin
           <!-- Sección de Diagnóstico -->
           <mat-card class="info-section">
             <div class="section-header">
-              <mat-icon>psychology</mat-icon>
-              <h3>Diagnóstico</h3>
+              <div class="header-left">
+                <mat-icon>psychology</mat-icon>
+                <h3>Diagnóstico</h3>
+              </div>
+              <button mat-stroked-button color="primary" class="add-button" (click)="openAddDiagnosisModal()">
+                <mat-icon>add_circle</mat-icon>
+                <span>Agregar diagnóstico</span>
+              </button>
             </div>
-            <div class="section-content" *ngIf="patient.diagnosis">
-              <p class="diagnosis-text">{{patient.diagnosis}}</p>
-              <p class="diagnosis-date">Diagnóstico realizado: {{patient.diagnosisDate | date:'dd/MM/yyyy'}}</p>
-            </div>
-            <div class="empty-state" *ngIf="!patient.diagnosis">
-              <p>No hay diagnóstico registrado para este paciente.</p>
+            <div class="section-content">
+              <div class="diagnosis-list" *ngIf="patient.diagnoses?.length">
+                <div class="diagnosis-item" *ngFor="let diagnosis of patient.diagnoses">
+                  <div class="diagnosis-header">
+                    <p class="diagnosis-date">{{diagnosis.diagnosisDate | date:'dd/MM/yyyy'}}</p>
+                  </div>
+                  <p class="diagnosis-description">{{diagnosis.description}}</p>
+                  <div class="tasks-list" *ngIf="diagnosis.tasks?.length">
+                    <h4>Tareas asignadas:</h4>
+                    <div class="task-item" *ngFor="let task of diagnosis.tasks">
+                      <mat-checkbox [(ngModel)]="task.completed"
+                                  (change)="onTaskStatusChange(diagnosis.id, task)">
+                        {{task.title}}
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="empty-state" *ngIf="!patient.diagnoses?.length">
+                <p>No hay diagnósticos registrados para este paciente.</p>
+                <button mat-flat-button color="primary" (click)="openAddDiagnosisModal()">
+                  <mat-icon>add_circle</mat-icon>
+                  <span>Agregar primer diagnóstico</span>
+                </button>
+              </div>
             </div>
           </mat-card>
 
           <!-- Sección de Medicación -->
           <mat-card class="info-section">
             <div class="section-header">
-              <mat-icon>medication</mat-icon>
-              <h3>Medicación</h3>
-            </div>
-            <div class="section-content" *ngIf="patient.medication">
-              <div class="medication-list">
-                <p class="medication-text">{{patient.medication}}</p>
+              <div class="header-left">
+                <mat-icon>medication</mat-icon>
+                <h3>Medicación</h3>
               </div>
+              <button mat-stroked-button color="primary" class="add-button" (click)="openAddMedicationModal()">
+                <mat-icon>add_circle</mat-icon>
+                <span>Agregar medicamento</span>
+              </button>
             </div>
-            <div class="empty-state" *ngIf="!patient.medication">
-              <p>No hay medicación registrada para este paciente.</p>
+            <div class="section-content">
+              <div class="medication-list" *ngIf="patient.medications?.length">
+                <div class="medication-item" *ngFor="let medication of patient.medications">
+                  <div class="medication-header">
+                    <h4>{{medication.name}}</h4>
+                    <p class="medication-date">Inicio: {{medication.startDate | date:'dd/MM/yyyy'}}</p>
+                  </div>
+                  <div class="medication-details">
+                    <p><strong>Dosis:</strong> {{medication.dosage}}</p>
+                    <p><strong>Frecuencia:</strong> Cada {{medication.frequency}} {{medication.frequencyUnit}}</p>
+                    <p><strong>Duración:</strong> {{medication.duration}}</p>
+                    <p *ngIf="medication.instructions"><strong>Instrucciones:</strong> {{medication.instructions}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="empty-state" *ngIf="!patient.medications?.length">
+                <p>No hay medicamentos registrados para este paciente.</p>
+                <button mat-flat-button color="primary" (click)="openAddMedicationModal()">
+                  <mat-icon>add_circle</mat-icon>
+                  <span>Agregar primer medicamento</span>
+                </button>
+              </div>
             </div>
           </mat-card>
 
@@ -344,124 +394,74 @@ import { AddAppointmentModalComponent } from './add-appointment-modal/add-appoin
       }
     }
 
-    .diagnosis-text {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #333;
-      margin-bottom: 1rem;
+    .diagnosis-list, .medication-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .diagnosis-date {
-      color: #666;
-      font-size: 0.9rem;
-    }
-
-    .medication-list {
-      p {
-        margin: 0.5rem 0;
-        line-height: 1.6;
-      }
-
-    }
-
-    .medication-text {
-      white-space: pre-wrap;
-      margin: 0.5rem 0;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    .notes-list {
-      margin-top: 1.5rem;
-    }
-
-    .note-item {
-      padding: 1rem;
-      background: #f5f5f5;
+    .diagnosis-item, .medication-item {
+      background-color: #f8f9fa;
       border-radius: 8px;
-      margin-bottom: 1rem;
-
-      .note-text {
-        margin: 0 0 0.5rem;
-        color: #333;
-        line-height: 1.5;
-      }
-
-      .note-date {
-        margin: 0;
-        color: #666;
-        font-size: 0.9rem;
-      }
+      padding: 16px;
+      border: 1px solid #e0e0e0;
     }
 
-    .appointment-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 2rem;
-
-      .full-width {
-        grid-column: 1 / -1;
-      }
-
-      button {
-        grid-column: 1 / -1;
-      }
-    }
-
-    .appointments-list {
-      margin-top: 2rem;
+    .diagnosis-header, .medication-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
 
       h4 {
-        color: #0a192f;
-        margin: 0 0 1rem;
+        margin: 0;
+        color: #2c3e50;
         font-size: 1.1rem;
       }
     }
 
-    .appointment-item {
-      padding: 1rem;
-      background: #f5f5f5;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+    .diagnosis-date, .medication-date {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0;
+    }
 
-      .appointment-info {
-        .appointment-date {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          margin: 0 0 0.5rem;
-          color: #0a192f;
-          font-weight: 500;
+    .diagnosis-description {
+      color: #2c3e50;
+      margin: 8px 0;
+      line-height: 1.5;
+    }
 
-          mat-icon {
-            font-size: 1.2rem;
-            width: 1.2rem;
-            height: 1.2rem;
-          }
-        }
+    .tasks-list {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
 
-        .appointment-reason {
-          margin: 0;
-          color: #666;
-        }
+      h4 {
+        margin: 0 0 12px;
+        color: #2c3e50;
+        font-size: 1rem;
       }
     }
 
-    .full-width {
-      width: 100%;
+    .task-item {
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1.5rem;
+    .medication-details {
+      margin-top: 12px;
 
-      mat-icon {
-        font-size: 1.2rem;
-        width: 1.2rem;
-        height: 1.2rem;
+      p {
+        margin: 4px 0;
+        color: #2c3e50;
+
+        strong {
+          color: #1976d2;
+        }
       }
     }
 
@@ -494,15 +494,13 @@ export class PatientDetailsComponent implements OnInit {
     lastName: '',
     email: '',
     phone: '',
+    birthDate: '',
     dni: '',
-    age: 0,
-    birthDate: new Date().toISOString().split('T')[0],
-    photoUrl: 'assets/avatars/default-avatar.png',
-    diagnosis: '',
-    diagnosisDate: '',
-    medication: '',
+    photoUrl: '',
     notes: [],
-    appointments: []
+    appointments: [],
+    diagnoses: [],
+    medications: []
   };
 
   constructor(
@@ -562,6 +560,44 @@ export class PatientDetailsComponent implements OnInit {
         this.patientService.updatePatient(this.patient);
       }
     });
+  }
+
+  openAddDiagnosisModal(): void {
+    const dialogRef = this.dialog.open(AddDiagnosisModalComponent, {
+      width: '600px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (!this.patient.diagnoses) {
+          this.patient.diagnoses = [];
+        }
+        this.patient.diagnoses.unshift(result);
+        this.patientService.updatePatient(this.patient);
+      }
+    });
+  }
+
+  openAddMedicationModal(): void {
+    const dialogRef = this.dialog.open(AddMedicationModalComponent, {
+      width: '600px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (!this.patient.medications) {
+          this.patient.medications = [];
+        }
+        this.patient.medications.unshift(result);
+        this.patientService.updatePatient(this.patient);
+      }
+    });
+  }
+
+  onTaskStatusChange(diagnosisId: string, task: DiagnosisTask): void {
+    this.patientService.updatePatient(this.patient);
   }
 }
 

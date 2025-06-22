@@ -1,0 +1,60 @@
+{
+  "LOGIN": {
+    "ROLE": {
+      "DOCTOR": "Logging in as Doctor",
+      "PATIENT": "Logging in as Patient"
+    },
+    "TITLE": "Welcome to SPYMED",
+    "SUBTITLE": "Please sign in to continue",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SIGN_IN": "Sign in",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "REGISTER_PROMPT": "Don't have an account?",
+    "REGISTER_HERE": "Register here",
+    "FORM": {
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "SUBMIT": "Sign In"
+    },
+    "TEST_CREDENTIALS": {
+      "TITLE": "For testing:",
+      "DOCTOR_HINT": "- Username: 'doctor' for doctor login",
+      "PATIENT_HINT": "- Username: 'patient' for patient login",
+      "PASSWORD_HINT": "- Password: any (for development)"
+    }
+  },
+  "DASHBOARD": {
+    "WELCOME": "Welcome back, Dr. {{name}}!",
+    "OVERVIEW": "Here's your practice overview for today",
+    "TODAY_APPOINTMENTS": "Today's Appointments",
+    "TOTAL_PATIENTS": "Total Patients",
+    "PENDING_ACTIONS": "Pending Actions",
+    "QUICK_ACTIONS": "Quick Actions",
+    "NEW_APPOINTMENT": "Schedule new appointment",
+    "PATIENT_RECORDS": "Medical Records",
+    "MY_SCHEDULE": "My Schedule",
+    "RECENT_ACTIVITY": "Recent Activity"
+  },
+  "PATIENTS": {
+    "TITLE": "My Patients",
+    "SEARCH": "Search patients",
+    "ADD_PATIENT": "Add Patient"
+  },
+  "APP": {
+    "TITLE": "SPYMED",
+    "DASHBOARD": "Dashboard",
+    "PATIENTS": "Patients",
+    "APPOINTMENTS": "Appointments",
+    "MEDICAL_RECORDS": "Medical Records",
+    "SETTINGS": "Settings",
+    "LANGUAGE": "Language"
+  },
+  "ERRORS": {
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Please enter a valid email address",
+    "USERNAME_REQUIRED": "Username is required",
+    "PASSWORD_REQUIRED": "Password is required",
+    "LOGIN_FAILED": "Login failed, please try again"
+  }
+}

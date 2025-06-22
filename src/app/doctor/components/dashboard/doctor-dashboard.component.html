@@ -1,0 +1,141 @@
+<div class="dashboard-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>SPYMED - Doctor Dashboard</span>
+    <span class="spacer"></span>
+
+    <app-language-switcher></app-language-switcher>
+
+    <span class="user-name">Dr. {{ doctorName }}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/doctor/dashboard" class="active">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="/doctor/patients">
+          <mat-icon>people</mat-icon>
+          <span>My Patients</span>
+        </a>
+        <a mat-list-item routerLink="/doctor/appointments">
+          <mat-icon>event</mat-icon>
+          <span>Appointments</span>
+        </a>
+        <a mat-list-item routerLink="/doctor/records">
+          <mat-icon>folder</mat-icon>
+          <span>Medical Records</span>
+        </a>
+        <a mat-list-item routerLink="/doctor/profile">
+          <mat-icon>person</mat-icon>
+          <span>My Profile</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <div class="dashboard-content">
+        <div class="welcome-section">
+          <h1>Welcome back, Dr. {{ doctorName }}!</h1>
+          <p>Here's your daily summary</p>
+        </div>
+
+        <div class="dashboard-cards">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-icon>people</mat-icon>
+              <mat-card-title>Patients</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2>24</h2>
+              <p>Total Patients</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">View All</button>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-icon>event</mat-icon>
+              <mat-card-title>Appointments</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2>6</h2>
+              <p>Today's Appointments</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">View Schedule</button>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-icon>notifications</mat-icon>
+              <mat-card-title>Alerts</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2>3</h2>
+              <p>New Notifications</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">View All</button>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-icon>insert_chart</mat-icon>
+              <mat-card-title>Reports</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2>8</h2>
+              <p>Pending Reports</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">View Reports</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+        <div class="upcoming-appointments">
+          <h2>Today's Appointments</h2>
+          <mat-card class="appointment-list">
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>person</mat-icon>
+                <div mat-line>Jane Doe</div>
+                <div mat-line>09:00 AM - General Checkup</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <mat-icon mat-list-icon>person</mat-icon>
+                <div mat-line>John Smith</div>
+                <div mat-line>10:30 AM - Follow-up</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                <mat-icon mat-list-icon>person</mat-icon>
+                <div mat-line>Emily Johnson</div>
+                <div mat-line>01:15 PM - Lab Results Review</div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

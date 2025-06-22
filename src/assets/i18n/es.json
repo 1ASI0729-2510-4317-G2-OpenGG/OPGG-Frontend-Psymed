@@ -1,0 +1,49 @@
+{
+  "LOGIN": {
+    "ROLE": {
+      "DOCTOR": "Accediendo como Médico",
+      "PATIENT": "Accediendo como Paciente"
+    },
+    "TITLE": "Bienvenido a SPYMED",
+    "SUBTITLE": "Por favor inicie sesión para continuar",
+    "EMAIL": "Correo electrónico",
+    "PASSWORD": "Contraseña",
+    "SIGN_IN": "Iniciar sesión",
+    "FORGOT_PASSWORD": "¿Olvidó su contraseña?",
+    "REGISTER_PROMPT": "¿No tiene cuenta?",
+    "REGISTER_HERE": "Regístrese aquí"
+  },
+  "DASHBOARD": {
+    "WELCOME": "¡Bienvenido, Dr. {{name}}!",
+    "OVERVIEW": "Resumen de su práctica hoy",
+    "TODAY_APPOINTMENTS": "Citas de hoy",
+    "TOTAL_PATIENTS": "Pacientes totales",
+    "PENDING_ACTIONS": "Acciones pendientes",
+    "QUICK_ACTIONS": "Acciones rápidas",
+    "NEW_APPOINTMENT": "Agendar nueva cita",
+    "PATIENT_RECORDS": "Historiales médicos",
+    "MY_SCHEDULE": "Mi agenda",
+    "RECENT_ACTIVITY": "Actividad reciente"
+  },
+  "PATIENTS": {
+    "TITLE": "Mis Pacientes",
+    "SEARCH": "Buscar pacientes",
+    "ADD_PATIENT": "Agregar paciente"
+  },
+  "APP": {
+    "TITLE": "SPYMED",
+    "DASHBOARD": "Panel",
+    "PATIENTS": "Pacientes",
+    "APPOINTMENTS": "Citas",
+    "MEDICAL_RECORDS": "Historiales médicos",
+    "SETTINGS": "Configuración",
+    "LANGUAGE": "Idioma"
+  },
+  "ERRORS": {
+    "EMAIL_REQUIRED": "El correo es obligatorio",
+    "EMAIL_INVALID": "Ingrese un correo válido",
+    "USERNAME_REQUIRED": "El nombre de usuario es obligatorio",
+    "PASSWORD_REQUIRED": "La contraseña es requerida",
+    "LOGIN_FAILED": "Fallo en el inicio intenta otra vez"
+  }
+}

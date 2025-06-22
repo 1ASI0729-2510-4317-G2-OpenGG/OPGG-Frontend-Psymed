@@ -1,0 +1,21 @@
+<h2>{{"dashboard-analytics.filter.title" | translate}}</h2>
+<div class="filter-section">
+  <mat-form-field class="input-list">
+    <mat-label>{{"dashboard-analytics.filter.year" | translate}}</mat-label>
+    <mat-select [(ngModel)]="selectedYear">
+      <mat-option *ngFor="let year of years" [value]="year.value">{{ year.value }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="input-list">
+    <mat-label>{{"dashboard-analytics.filter.month" | translate}}</mat-label>
+    <mat-select [(ngModel)]="selectedMonth">
+      <mat-option *ngFor="let month of months" [value]="month.value">{{ month.viewValue }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-fab aria-label="filter button" (click)="filterRequest()">
+    <span>{{"dashboard-analytics.filter.button" | translate}}</span>
+    <mat-icon>filter_alt</mat-icon>
+  </button>
+</div>

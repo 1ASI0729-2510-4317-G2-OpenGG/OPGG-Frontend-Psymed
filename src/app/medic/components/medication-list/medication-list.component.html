@@ -1,0 +1,61 @@
+<section class="dashboard-content">
+
+  <div class="welcome-section" style="text-align: center;">
+    <h1 [attr.aria-label]="'medication-list.title' | translate">
+      {{ 'medication-list.title' | translate }}
+    </h1>
+  </div>
+
+  <div *ngIf="loading" role="status" class="text-center" [attr.aria-label]="'medication-list.loading' | translate">
+    {{ 'medication-list.loading' | translate }}
+  </div>
+
+  <div *ngIf="error" role="alert" class="text-center" [attr.aria-label]="'medication-list.error' | translate">
+    {{ 'medication-list.error' | translate }}
+  </div>
+
+  <ng-container *ngIf="!loading && !error && medications.length > 0; else noData">
+    <div class="dashboard-cards">
+      <div
+        *ngFor="let med of medications"
+        class="dashboard-card"
+        tabindex="0"
+        [attr.aria-label]="med.name">
+        <mat-card class="med-card">
+          <mat-card-header>
+            <mat-icon>medication</mat-icon>
+            <mat-card-title>{{ med.name }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>{{ 'medication-list.dosage' | translate }}:</strong> {{ med.dosage }}</p>
+            <p><strong>{{ 'medication-list.side_effects' | translate }}:</strong> {{ (med.sideEffects && med.sideEffects.length) ? med.sideEffects.join(', ') : 'N/A' }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noData>
+    <p class="text-center" [attr.aria-label]="'medication-list.no_data' | translate">
+      {{ 'medication-list.no_data' | translate }}
+    </p>
+  </ng-template>
+
+  <div class="button-container" style="display: flex; justify-content: center; gap: 12px; margin-top: 30px;">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="'/'"
+      [attr.aria-label]="'medication-list.back_to_menu' | translate">
+      {{ 'medication-list.back_to_menu' | translate }}
+    </button>
+
+    <button
+      mat-raised-button
+      color="accent"
+      [routerLink]="'/medication-add'"
+      [attr.aria-label]="'medication-list.add_medication' | translate">
+      {{ 'medication-list.add_medication' | translate }}
+    </button>
+  </div>
+</section>

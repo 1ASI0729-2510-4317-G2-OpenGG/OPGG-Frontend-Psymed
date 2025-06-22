@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- Barra lateral -->
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <mat-toolbar color="primary">
+      <span>{{ 'APP_TITLE' | translate }}</span> <!-- Texto traducible -->
+    </mat-toolbar>
+    <mat-nav-list>
+      <!-- Menú con textos traducibles -->
+      <a mat-list-item routerLink="/doctor-dashboard">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span>{{ 'DASHBOARD' | translate }}</span>
+      </a>
+      <!-- ... otros items del menú -->
+    </mat-nav-list>
+
+    <div class="sidebar-language-switcher">
+      <app-language-switcher></app-language-switcher>
+    </div>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <!-- Toolbar con botón de idioma -->
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="spacer"></span>
+
+      <!-- Language Switcher -->
+      <app-language-switcher></app-language-switcher>
+
+    </mat-toolbar>
+
+    <!-- Aquí se inyectan las vistas -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

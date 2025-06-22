@@ -1,0 +1,16 @@
+<div style="width: 280px; height: 280px;" >
+  <mat-card appearance="outlined">
+    <mat-card-title>
+      {{"dashboard-analytics.pie-chart.title" | translate}}
+    </mat-card-title>
+    <mat-card-content class="content">
+      <canvas class="pie-chart"  baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [type]="'pie'"
+      >
+      </canvas>
+    </mat-card-content>
+
+  </mat-card>
+</div>

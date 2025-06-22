@@ -1,0 +1,67 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <button mat-icon-button class="back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        <p>{{ 'LOGIN.TITLE' | translate }}</p>
+      </button>
+      <mat-card-title>
+        <span *ngIf="selectedRole === 'doctor'">{{ 'LOGIN.ROLE.DOCTOR' | translate }}</span>
+        <span *ngIf="selectedRole === 'patient'">{{ 'LOGIN.ROLE.PATIENT' | translate }}</span>
+        <span *ngIf="!selectedRole">SPYMED - Login</span>
+
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <div *ngIf="selectedRole" class="role-info">
+        <div class="role-icon">
+          <mat-icon *ngIf="selectedRole === 'doctor'">local_hospital</mat-icon>
+          <mat-icon *ngIf="selectedRole === 'patient'">person</mat-icon>
+        </div>
+        <p class="role-text">
+          <span *ngIf="selectedRole === 'doctor'">Accediendo como Médico</span>
+          <span *ngIf="selectedRole === 'patient'">Accediendo como Paciente</span>
+        </p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'LOGIN.FORM.USERNAME' | translate }}</mat-label>
+            <input matInput formControlName="username" [placeholder]="'LOGIN.FORM.USERNAME' | translate">
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+              {{ 'ERRORS.USERNAME_REQUIRED' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'LOGIN.FORM.PASSWORD' | translate }}</mat-label>
+            <input matInput type="password" formControlName="password" [placeholder]="'LOGIN.FORM.PASSWORD' | translate">
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              {{ 'ERRORS.PASSWORD_REQUIRED' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div *ngIf="error" class="error-message">
+          {{ error }}
+        </div>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading || loginForm.invalid">
+            <span *ngIf="loading">Iniciando sesión...</span>
+            <span *ngIf="!loading">{{ 'LOGIN.FORM.SUBMIT' | translate }}</span>
+          </button>
+        </div>
+        <div class="login-tips">
+          <p>{{ 'LOGIN.TEST_CREDENTIALS.TITLE' | translate }}</p>
+          <p>{{ 'LOGIN.TEST_CREDENTIALS.DOCTOR_HINT' | translate }}</p>
+          <p *ngIf="!selectedRole">- Usuario: "patient" para login de paciente</p>
+          <p>- Contraseña: cualquiera (para desarrollo)</p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

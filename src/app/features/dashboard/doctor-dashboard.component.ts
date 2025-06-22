@@ -404,68 +404,11 @@ export class DoctorDashboardComponent implements OnInit {
     }
   ];
 
-  patients: Patient[] = [
-    {
-      id: '1',
-      name: 'John',
-      lastName: 'Doe',
-      age: 32,
-      dni: '12345678',
-      birthDate: '1990-01-01',
-      phone: '984 123 451',
-      email: 'correo@hotmail.com',
-      photoUrl: 'assets/avatars/patient-1.png',
-      status: 'active',
-      isFavorite: true
-    },
-    {
-      id: '2',
-      name: 'Maria',
-      lastName: 'Becerra',
-      age: 32,
-      dni: '87654321',
-      birthDate: '1990-02-01',
-      phone: '984 123 451',
-      email: 'correo@hotmail.com',
-      photoUrl: 'assets/avatars/patient-2.png',
-      status: 'pending',
-      isFavorite: false
-    },
-    {
-      id: '3',
-      name: 'Juan',
-      lastName: 'del Piero',
-      age: 32,
-      dni: '11223344',
-      birthDate: '1990-03-01',
-      phone: '984 123 451',
-      email: 'correo@hotmail.com',
-      photoUrl: 'assets/avatars/patient-3.png',
-      status: 'active',
-      isFavorite: true
-    },
-    {
-      id: '4',
-      name: 'Joshua',
-      lastName: 'Kimmich',
-      age: 32,
-      dni: '44332211',
-      birthDate: '1990-04-01',
-      phone: '984 123 451',
-      email: 'correo@hotmail.com',
-      photoUrl: 'assets/avatars/patient-4.png',
-      status: 'inactive',
-      isFavorite: false
-    }
-  ];
-
-  // Fechas ocupadas (simuladas)
-  occupiedDates = [
-    new Date(2024, 2, 15),
-    new Date(2024, 2, 18),
-    new Date(2024, 2, 20),
-    new Date(2024, 2, 25),
-    new Date(2024, 2, 28)
+  patients: Patient[] = [];
+  occupiedDates: Date[] = [
+    new Date('2024-03-20'),
+    new Date('2024-03-22'),
+    new Date('2024-03-25')
   ];
 
   constructor(
@@ -473,58 +416,61 @@ export class DoctorDashboardComponent implements OnInit {
     private router: Router,
     private patientService: PatientService,
     private dateAdapter: DateAdapter<Date>
-  ) {}
-
-  ngOnInit() {
-    this.patientService.patients$.subscribe(patients => {
-      this.patients = patients;
-    });
-
-    // Configurar el locale para las fechas
+  ) {
     this.dateAdapter.setLocale('es');
   }
 
-  openAddPatientModal() {
-    this.router.navigate(['/dashboard/patient/new']);
+  ngOnInit() {
+    // Subscribe to patients updates
+    this.patientService.getPatients().subscribe(patients => {
+      this.patients = patients;
+    });
+
+    // Ensure calendar stays open
+    setTimeout(() => {
+      const calendar = document.querySelector('mat-calendar');
+      if (calendar) {
+        calendar.setAttribute('style', 'display: block !important');
+      }
+    });
+  }
+
+  addPatient() {
+    const dialogRef = this.dialog.open(AddPatientModalComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      panelClass: 'add-patient-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.patientService.addPatient(result);
+      }
+    });
   }
 
   viewPatientDetails(patientId: string) {
     this.router.navigate(['/dashboard/medico/paciente', patientId]);
   }
 
-  onDateSelected(date: Date | null) {
-    if (date) {
-      this.selectedDate = date;
-    }
-  }
-
-  // Filtro para deshabilitar fechas pasadas y fines de semana
   dateFilter = (date: Date | null): boolean => {
     if (!date) return false;
     const day = date.getDay();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Permitir solo días de semana (Lun-Vie) y fechas futuras
-    return date >= today && day !== 0 && day !== 6;
+    // Disable weekends
+    return day !== 0 && day !== 6;
   };
 
-  // Clase personalizada para fechas ocupadas
   dateClass = (date: Date): string => {
     const isOccupied = this.occupiedDates.some(occupiedDate =>
       occupiedDate.getDate() === date.getDate() &&
       occupiedDate.getMonth() === date.getMonth() &&
       occupiedDate.getFullYear() === date.getFullYear()
     );
-    return isOccupied ? 'occupied-date' : '';
+    return isOccupied ? 'occupied-date' : 'available-date';
   };
 
   openCalendar() {
     console.log('Abrir calendario');
-  }
-
-  addPatient() {
-    console.log('Agregar paciente');
   }
 
   toggleFavorite(patient: Patient) {

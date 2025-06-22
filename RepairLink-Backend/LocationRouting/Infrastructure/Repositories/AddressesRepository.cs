@@ -19,4 +19,10 @@ public class AddressesRepository(AppDbContext context)
     {
         return await Context.Set<Addresses>().FirstOrDefaultAsync(f =>f.city  == city && f.zipCode == zipCode);
     }
+    
+    public async Task AddAsync(Addresses address)
+    {
+        await Context.Set<Addresses>().AddAsync(address);
+        await Context.SaveChangesAsync(); 
+    }
 }

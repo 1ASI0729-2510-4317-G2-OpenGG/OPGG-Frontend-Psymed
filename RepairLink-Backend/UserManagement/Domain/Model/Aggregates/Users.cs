@@ -34,6 +34,9 @@ public partial class Users
     //Navigation Property
     public virtual Addresses Addresses { get; private set; } = null!;
     public virtual ICollection<Notification.Domain.Model.Aggregates.Notification> Notification { get; private set; } = new List<Notification.Domain.Model.Aggregates.Notification>();
-    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> Bookings { get; private set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
+    
+    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> CustomerBookings { get; private set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
+    public virtual ICollection<Booking.Domain.Model.Aggregates.Booking> TechnicianBookings { get; private set; } = new List<Booking.Domain.Model.Aggregates.Booking>();
+
     public virtual ICollection<AvailabilitySlots> AvailabilitySlots { get; private set; } = new List<AvailabilitySlots>();
 }

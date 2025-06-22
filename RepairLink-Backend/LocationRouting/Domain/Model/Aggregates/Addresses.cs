@@ -26,7 +26,7 @@ public partial class Addresses
         lng = command.lng;
     }
     
-    public int id { get; }
+    public int id { get; private set; }
     public string street { get; private set; }
     public string city { get; private set; }
     public string zipCode { get; private set; }

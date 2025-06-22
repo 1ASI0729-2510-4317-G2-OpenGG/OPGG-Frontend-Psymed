@@ -124,17 +124,17 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .WithOne(a => a.Payment)
             .HasForeignKey<Payment.Domain.Model.Aggregates.Payment>(u => u.BookingId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Entity<Booking.Domain.Model.Aggregates.Booking>()
-            .HasOne(u => u.Customer)
-            .WithMany(a => a.Bookings)
-            .HasForeignKey(u => u.CustomerId)
-            .OnDelete(DeleteBehavior.Restrict);
         
         builder.Entity<Booking.Domain.Model.Aggregates.Booking>()
-            .HasOne(u => u.Technician)
-            .WithMany(a => a.Bookings)
-            .HasForeignKey(u => u.TechnicianId)
+            .HasOne(b => b.Customer)
+            .WithMany(u => u.CustomerBookings)
+            .HasForeignKey(b => b.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Booking.Domain.Model.Aggregates.Booking>()
+            .HasOne(b => b.Technician)
+            .WithMany(u => u.TechnicianBookings)
+            .HasForeignKey(b => b.TechnicianId)
             .OnDelete(DeleteBehavior.Restrict);
         
         

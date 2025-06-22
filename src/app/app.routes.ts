@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { RoleSelectionComponent } from './features/role-selection/role-selection.component';
 import { DoctorDashboardComponent } from './features/dashboard/doctor-dashboard.component';
 import { DoctorProfileComponent } from './features/profile/doctor-profile.component';
+import { PatientProfileComponent } from './features/profile/patient-profile.component';
 import { PatientDetailsComponent } from './features/dashboard/patient-details/patient-details.component';
 
 export const routes: Routes = [
@@ -18,16 +19,44 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: DoctorDashboardComponent
+        redirectTo: 'medico',
+        pathMatch: 'full'
       },
       {
-        path: 'patient/:id',
-        component: PatientDetailsComponent
+        path: 'medico',
+        children: [
+          {
+            path: '',
+            component: DoctorDashboardComponent
+          },
+          {
+            path: 'paciente/:id',
+            component: PatientDetailsComponent
+          }
+        ]
+      },
+      {
+        path: 'paciente',
+        component: DoctorDashboardComponent // Temporalmente usando el mismo componente
       }
     ]
   },
   {
     path: 'profile',
-    component: DoctorProfileComponent
+    children: [
+      {
+        path: '',
+        redirectTo: 'medico',
+        pathMatch: 'full'
+      },
+      {
+        path: 'medico',
+        component: DoctorProfileComponent
+      },
+      {
+        path: 'paciente',
+        component: PatientProfileComponent
+      }
+    ]
   }
 ];

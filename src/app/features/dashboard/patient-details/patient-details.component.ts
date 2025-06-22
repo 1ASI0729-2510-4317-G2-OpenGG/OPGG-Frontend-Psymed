@@ -495,6 +495,7 @@ export class PatientDetailsComponent implements OnInit {
     email: '',
     phone: '',
     dni: '',
+    age: 0,
     birthDate: new Date().toISOString().split('T')[0],
     photoUrl: 'assets/avatars/default-avatar.png',
     diagnosis: '',

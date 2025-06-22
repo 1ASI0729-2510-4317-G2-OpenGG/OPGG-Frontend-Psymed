@@ -14,6 +14,16 @@ import { AddPatientModalComponent } from './add-patient-modal/add-patient-modal.
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { Patient } from './domain/patient.model';
 import { PatientService } from './services/patient.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DateAdapter } from '@angular/material/core';
+
+interface DashboardAppointment {
+  time: string;
+  patientName: string;
+  type: string;
+  status: 'completed' | 'in-progress' | 'scheduled';
+}
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -29,123 +39,457 @@ import { PatientService } from './services/patient.service';
     MatNativeDateModule,
     FormsModule,
     MatTooltipModule,
-    NavbarComponent
+    NavbarComponent,
+    MatFormFieldModule,
+    MatInputModule
   ],
   template: `
     <app-navbar></app-navbar>
     <div class="dashboard-container">
+      <!-- Panel Izquierdo - Calendario -->
+      <div class="calendar-section">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Agenda</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="calendar-header">
+              <h2>{{selectedDate | date:'EEEE, d MMMM'}}</h2>
+              <button mat-stroked-button color="primary" (click)="openCalendar()">
+                <mat-icon>calendar_today</mat-icon>
+                OPEN CALENDAR
+              </button>
+            </div>
+
+            <mat-form-field appearance="fill" class="date-picker">
+              <input matInput [matDatepicker]="picker"
+                     [(ngModel)]="selectedDate"
+                     [matDatepickerFilter]="dateFilter">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+            </mat-form-field>
+
+            <div class="calendar-legend">
+              <div class="legend-item">
+                <span class="dot available"></span>
+                <span>Disponible</span>
+              </div>
+              <div class="legend-item">
+                <span class="dot occupied"></span>
+                <span>Ocupado</span>
+              </div>
+            </div>
+
+            <div class="appointments-list">
+              <div class="appointment-item" *ngFor="let appointment of todayAppointments">
+                <div class="appointment-time">{{appointment.time}}</div>
+                <div class="appointment-info">
+                  <div class="patient-name">{{appointment.patientName}}</div>
+                  <div class="appointment-type">{{appointment.type}}</div>
+                </div>
+                <div class="appointment-status" [class]="appointment.status">
+                  {{appointment.status}}
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Panel Derecho - Lista de Pacientes -->
       <div class="patients-section">
-        <div class="section-header">
+        <div class="patients-header">
           <h2>Mis Pacientes</h2>
-          <button mat-raised-button color="primary" (click)="openAddPatientModal()">
-            <mat-icon>add</mat-icon>
-            Nuevo Paciente
+          <button mat-raised-button color="primary" (click)="addPatient()">
+            <mat-icon>person_add</mat-icon>
+            Add Patient
           </button>
         </div>
 
-        <div class="patients-grid">
-          <mat-card *ngFor="let patient of patients" class="patient-card" (click)="viewPatientDetails(patient.id)">
-            <mat-card-header>
-              <div mat-card-avatar class="patient-avatar">
-                <mat-icon>person</mat-icon>
-              </div>
-              <mat-card-title>{{patient.name}} {{patient.lastName}}</mat-card-title>
-              <mat-card-subtitle>DNI: {{patient.dni}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <p><mat-icon>email</mat-icon> {{patient.email}}</p>
-              <p><mat-icon>phone</mat-icon> {{patient.phone}}</p>
-            </mat-card-content>
-          </mat-card>
+        <div class="patients-list">
+          <div class="patient-card" *ngFor="let patient of patients">
+            <div class="status-indicator" [class]="patient.status || 'active'"></div>
+            <div class="patient-avatar">
+              <img [src]="patient.photoUrl || 'assets/avatars/default-avatar.png'" [alt]="patient.name">
+            </div>
+            <div class="patient-info">
+              <h3>{{patient.name}} {{patient.lastName}}</h3>
+              <p>{{patient.age}} años</p>
+              <p>{{patient.phone}} | {{patient.email}}</p>
+            </div>
+            <div class="patient-actions">
+              <button mat-icon-button color="primary" (click)="viewPatientDetails(patient.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
     .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 2rem;
       padding: 2rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      min-height: calc(100vh - 64px);
+      background-color: #f5f9fc;
     }
 
-    .section-header {
+    .calendar-section, .patients-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    mat-card {
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .calendar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
 
       h2 {
         margin: 0;
-        color: #333;
+        color: #0a192f;
+        font-size: 1.5rem;
       }
     }
 
-    .patients-grid {
+    .date-picker {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .appointments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .appointment-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      gap: 1rem;
+
+      .appointment-time {
+        font-weight: 500;
+        color: #0a192f;
+        min-width: 80px;
+      }
+
+      .appointment-info {
+        flex: 1;
+
+        .patient-name {
+          font-weight: 500;
+          color: #0a192f;
+        }
+
+        .appointment-type {
+          color: #64748b;
+          font-size: 0.9rem;
+        }
+      }
+
+      .appointment-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &.scheduled {
+          background: #e3f2fd;
+          color: #1976d2;
+        }
+
+        &.in-progress {
+          background: #e8f5e9;
+          color: #2e7d32;
+        }
+
+        &.completed {
+          background: #f5f5f5;
+          color: #616161;
+        }
+      }
+    }
+
+    .patients-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      h2 {
+        margin: 0;
+        color: #0a192f;
+        font-size: 1.5rem;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .patients-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      gap: 1rem;
     }
 
     .patient-card {
-      cursor: pointer;
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      gap: 1rem;
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      .status-indicator {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        width: 4px;
+        height: calc(100% - 2rem);
+        border-radius: 2px;
+
+        &.active {
+          background: #4caf50;
+        }
+
+        &.pending {
+          background: #ff9800;
+        }
+
+        &.inactive {
+          background: #9e9e9e;
+        }
       }
     }
 
     .patient-avatar {
-      background-color: #e0e0e0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
 
-      mat-icon {
-        color: #666;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
-    mat-card-content {
-      margin-top: 1rem;
+    .patient-info {
+      flex: 1;
+
+      h3 {
+        margin: 0;
+        color: #0a192f;
+        font-size: 1.1rem;
+      }
 
       p {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin: 0.5rem 0;
-        color: #666;
+        margin: 0.2rem 0;
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+    }
 
-        mat-icon {
-          font-size: 1.2rem;
-          width: 1.2rem;
-          height: 1.2rem;
+    .patient-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 1200px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .dashboard-container {
+        padding: 1rem;
+      }
+
+      .patients-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calendar-legend {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+
+      &.available {
+        background-color: #4caf50;
+      }
+
+      &.occupied {
+        background-color: #f44336;
+      }
+    }
+
+    ::ng-deep {
+      .occupied-date {
+        background-color: #ffebee;
+        border-radius: 50%;
+
+        .mat-calendar-body-cell-content {
+          color: #f44336;
         }
       }
     }
   `]
 })
 export class DoctorDashboardComponent implements OnInit {
-  selectedDate: Date = new Date();
-  patients: Patient[] = [];
+  selectedDate = new Date();
+  todayAppointments: DashboardAppointment[] = [
+    {
+      time: '09:00 AM',
+      patientName: 'John Doe',
+      type: 'Consulta Regular',
+      status: 'completed'
+    },
+    {
+      time: '10:30 AM',
+      patientName: 'Maria Becerra',
+      type: 'Primera Consulta',
+      status: 'in-progress'
+    },
+    {
+      time: '12:00 PM',
+      patientName: 'Juan del Piero',
+      type: 'Seguimiento',
+      status: 'scheduled'
+    },
+    {
+      time: '15:30 PM',
+      patientName: 'Joshua Kimmich',
+      type: 'Consulta Regular',
+      status: 'scheduled'
+    }
+  ];
+
+  patients: Patient[] = [
+    {
+      id: '1',
+      name: 'John',
+      lastName: 'Doe',
+      age: 32,
+      dni: '12345678',
+      birthDate: '1990-01-01',
+      phone: '984 123 451',
+      email: 'correo@hotmail.com',
+      photoUrl: 'assets/avatars/patient-1.png',
+      status: 'active',
+      isFavorite: true
+    },
+    {
+      id: '2',
+      name: 'Maria',
+      lastName: 'Becerra',
+      age: 32,
+      dni: '87654321',
+      birthDate: '1990-02-01',
+      phone: '984 123 451',
+      email: 'correo@hotmail.com',
+      photoUrl: 'assets/avatars/patient-2.png',
+      status: 'pending',
+      isFavorite: false
+    },
+    {
+      id: '3',
+      name: 'Juan',
+      lastName: 'del Piero',
+      age: 32,
+      dni: '11223344',
+      birthDate: '1990-03-01',
+      phone: '984 123 451',
+      email: 'correo@hotmail.com',
+      photoUrl: 'assets/avatars/patient-3.png',
+      status: 'active',
+      isFavorite: true
+    },
+    {
+      id: '4',
+      name: 'Joshua',
+      lastName: 'Kimmich',
+      age: 32,
+      dni: '44332211',
+      birthDate: '1990-04-01',
+      phone: '984 123 451',
+      email: 'correo@hotmail.com',
+      photoUrl: 'assets/avatars/patient-4.png',
+      status: 'inactive',
+      isFavorite: false
+    }
+  ];
+
+  // Fechas ocupadas (simuladas)
+  occupiedDates = [
+    new Date(2024, 2, 15),
+    new Date(2024, 2, 18),
+    new Date(2024, 2, 20),
+    new Date(2024, 2, 25),
+    new Date(2024, 2, 28)
+  ];
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private dateAdapter: DateAdapter<Date>
   ) {}
 
   ngOnInit() {
     this.patientService.patients$.subscribe(patients => {
       this.patients = patients;
     });
+
+    // Configurar el locale para las fechas
+    this.dateAdapter.setLocale('es');
   }
 
   openAddPatientModal() {
     this.router.navigate(['/dashboard/patient/new']);
   }
 
-  viewPatientDetails(id: string) {
-    this.router.navigate(['/dashboard/patient', id]);
+  viewPatientDetails(patientId: string) {
+    this.router.navigate(['/dashboard/medico/paciente', patientId]);
   }
 
   onDateSelected(date: Date | null) {
@@ -154,37 +498,37 @@ export class DoctorDashboardComponent implements OnInit {
     }
   }
 
-  dateClass = (date: Date): string => {
-    if (this.hasAppointmentOnDate(date)) return 'booked';
-    if (this.isDateUnavailable(date)) return 'unavailable';
-    return '';
+  // Filtro para deshabilitar fechas pasadas y fines de semana
+  dateFilter = (date: Date | null): boolean => {
+    if (!date) return false;
+    const day = date.getDay();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Permitir solo días de semana (Lun-Vie) y fechas futuras
+    return date >= today && day !== 0 && day !== 6;
   };
 
-  hasAppointmentOnDate(date: Date): boolean {
-    return this.patients.some(patient =>
-      patient.appointments?.some(appointment => {
-        const appointmentDate = new Date(appointment.date);
-        return appointmentDate.getFullYear() === date.getFullYear() &&
-               appointmentDate.getMonth() === date.getMonth() &&
-               appointmentDate.getDate() === date.getDate();
-      })
+  // Clase personalizada para fechas ocupadas
+  dateClass = (date: Date): string => {
+    const isOccupied = this.occupiedDates.some(occupiedDate =>
+      occupiedDate.getDate() === date.getDate() &&
+      occupiedDate.getMonth() === date.getMonth() &&
+      occupiedDate.getFullYear() === date.getFullYear()
     );
+    return isOccupied ? 'occupied-date' : '';
+  };
+
+  openCalendar() {
+    console.log('Abrir calendario');
   }
 
-  isDateUnavailable(date: Date): boolean {
-    return this.patientService.getUnavailableDates().some(unavailableDate =>
-      unavailableDate.getFullYear() === date.getFullYear() &&
-      unavailableDate.getMonth() === date.getMonth() &&
-      unavailableDate.getDate() === date.getDate()
-    );
+  addPatient() {
+    console.log('Agregar paciente');
   }
 
-  toggleDateAvailability(date: Date) {
-    if (this.isDateUnavailable(date)) {
-      this.patientService.removeUnavailableDate(date);
-    } else {
-      this.patientService.addUnavailableDate(date);
-    }
+  toggleFavorite(patient: Patient) {
+    patient.isFavorite = !patient.isFavorite;
   }
 }
 

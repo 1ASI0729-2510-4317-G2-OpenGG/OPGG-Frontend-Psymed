@@ -9,7 +9,7 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-doctor-profile',
+  selector: 'app-patient-profile',
   standalone: true,
   imports: [
     CommonModule,
@@ -29,11 +29,11 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="profile-left-column">
           <div class="profile-header">
             <div class="profile-avatar">
-              <img src="assets/avatars/doctor-1.png" alt="Profile photo">
+              <img src="assets/avatars/patient-1.png" alt="Profile photo">
             </div>
             <div class="profile-info">
               <h1>{{profile.name}} {{profile.lastName}}</h1>
-              <p class="specialty">{{profile.specialty}}</p>
+              <p class="age">{{profile.age}} años</p>
             </div>
           </div>
 
@@ -41,6 +41,12 @@ import { MatIconModule } from '@angular/material/icon';
             <div class="section personal-data">
               <h2>Datos personales</h2>
               <form class="profile-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>DNI</mat-label>
+                  <input matInput [(ngModel)]="profile.dni" name="dni" readonly>
+                  <mat-icon matSuffix>badge</mat-icon>
+                </mat-form-field>
+
                 <mat-form-field appearance="outline">
                   <mat-label>Teléfono</mat-label>
                   <input matInput [(ngModel)]="profile.phone" name="phone">
@@ -66,26 +72,24 @@ import { MatIconModule } from '@angular/material/icon';
         <!-- Columna Derecha -->
         <div class="profile-right-column">
           <div class="profile-content">
-            <div class="section about">
-              <h2>Sobre mí</h2>
-              <p class="description">{{profile.description}}</p>
-            </div>
+            <div class="section medical-history">
+              <h2>Historial Médico</h2>
+              <div class="medical-info">
+                <div class="info-item">
+                  <h3>Diagnóstico Actual</h3>
+                  <p>{{profile.currentDiagnosis || 'No hay diagnóstico actual'}}</p>
+                  <p class="date" *ngIf="profile.diagnosisDate">Desde: {{profile.diagnosisDate | date}}</p>
+                </div>
 
-            <div class="section education">
-              <h2>Educación</h2>
-              <div class="education-item" *ngFor="let edu of profile.education">
-                <h3>{{edu.degree}}</h3>
-                <p>{{edu.institution}}</p>
-                <p class="year">{{edu.year}}</p>
-              </div>
-            </div>
+                <div class="info-item">
+                  <h3>Medicación Actual</h3>
+                  <p>{{profile.currentMedication || 'No hay medicación actual'}}</p>
+                </div>
 
-            <div class="section specialties">
-              <h2>Especialidades</h2>
-              <div class="specialty-tags">
-                <span class="specialty-tag" *ngFor="let spec of profile.specialties">
-                  {{spec}}
-                </span>
+                <div class="info-item">
+                  <h3>Próxima Cita</h3>
+                  <p>{{profile.nextAppointment || 'No hay citas programadas'}}</p>
+                </div>
               </div>
             </div>
 
@@ -152,7 +156,7 @@ import { MatIconModule } from '@angular/material/icon';
       font-weight: 600;
     }
 
-    .specialty {
+    .age {
       color: #2196f3;
       font-size: 1.2rem;
       margin: 0.5rem 0;
@@ -186,45 +190,34 @@ import { MatIconModule } from '@angular/material/icon';
       gap: 1rem;
     }
 
-    .description {
-      color: #64748b;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0;
+    .medical-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .education-item {
-      margin-bottom: 1.5rem;
+    .info-item {
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
 
       h3 {
         color: #0a192f;
-        margin: 0;
+        margin: 0 0 0.5rem;
         font-size: 1.1rem;
       }
 
       p {
-        margin: 0.3rem 0;
+        margin: 0;
         color: #64748b;
+        line-height: 1.4;
+
+        &.date {
+          color: #2196f3;
+          font-size: 0.9rem;
+          margin-top: 0.5rem;
+        }
       }
-
-      .year {
-        color: #2196f3;
-        font-size: 0.9rem;
-      }
-    }
-
-    .specialty-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-
-    .specialty-tag {
-      background: #e3f2fd;
-      color: #1976d2;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
     }
 
     .actions {
@@ -250,34 +243,19 @@ import { MatIconModule } from '@angular/material/icon';
     }
   `]
 })
-export class DoctorProfileComponent {
+export class PatientProfileComponent {
   profile = {
-    name: 'Dr. Gilberto',
-    lastName: 'Del Campo Godomar',
-    specialty: 'Psiquiatría',
-    email: 'gilberto.delcampo@example.com',
-    phone: '123-456-789',
+    name: 'Juan',
+    lastName: 'Del Piero',
+    age: 32,
+    dni: '11223344',
+    email: 'juan.delpiero@example.com',
+    phone: '984 123 451',
     address: 'Av. Principal 123, Lima',
-    description: 'El Dr. Del Campo es psiquiatra, graduado en Medicina y especializado en salud mental. Posee experiencia en trastornos del estado de ánimo, ansiedad y psicoterapia, combinando tratamientos basados en evidencia con un enfoque centrado en el paciente.',
-    education: [
-      {
-        degree: 'Doctorado en Medicina',
-        institution: 'Universidad Nacional Mayor de San Marcos',
-        year: '2015'
-      },
-      {
-        degree: 'Especialización en Psiquiatría',
-        institution: 'Hospital Nacional Guillermo Almenara',
-        year: '2018'
-      }
-    ],
-    specialties: [
-      'Psiquiatría General',
-      'Trastornos del Estado de Ánimo',
-      'Ansiedad',
-      'Psicoterapia',
-      'Salud Mental'
-    ]
+    currentDiagnosis: 'Trastorno de ansiedad generalizada',
+    diagnosisDate: '2024-01-15',
+    currentMedication: 'Sertralina 50mg - 1 tableta diaria',
+    nextAppointment: '28 de Marzo, 2024 - 10:30 AM'
   };
 
   save() {

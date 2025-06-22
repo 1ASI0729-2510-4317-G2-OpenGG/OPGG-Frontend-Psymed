@@ -2,11 +2,14 @@ export interface Patient {
   id: string;
   name: string;
   lastName: string;
+  age: number;
   dni: string;
   birthDate: string;
   email: string;
   phone: string;
   photoUrl?: string;
+  status?: 'active' | 'pending' | 'inactive';
+  isFavorite?: boolean;
   diagnosis?: string;
   diagnosisDate?: string;
   medication?: string;

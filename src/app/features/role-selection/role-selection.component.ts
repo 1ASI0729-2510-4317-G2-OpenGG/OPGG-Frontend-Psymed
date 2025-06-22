@@ -85,6 +85,7 @@ export class RoleSelectionComponent {
   constructor(private router: Router) {}
 
   navigateToLogin(role: 'patient' | 'doctor') {
-    this.router.navigate(['/dashboard']);
+    const route = role === 'doctor' ? '/dashboard/medico' : '/dashboard/paciente';
+    this.router.navigate([route]);
   }
 }

@@ -4,6 +4,7 @@ import { DoctorDashboardComponent } from './features/dashboard/doctor-dashboard.
 import { DoctorProfileComponent } from './features/profile/doctor-profile.component';
 import { PatientProfileComponent } from './features/profile/patient-profile.component';
 import { PatientDetailsComponent } from './features/dashboard/patient-details/patient-details.component';
+import { PatientDashboardComponent } from './features/dashboard/patient-dashboard/patient-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -37,7 +38,7 @@ export const routes: Routes = [
       },
       {
         path: 'paciente',
-        component: DoctorDashboardComponent // Temporalmente usando el mismo componente
+        component: PatientDashboardComponent
       }
     ]
   },

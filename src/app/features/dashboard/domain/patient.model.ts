@@ -6,9 +6,11 @@ export interface Patient {
   birthDate: string;
   email: string;
   phone: string;
+  photoUrl?: string;
   diagnosis?: string;
   diagnosisDate?: string;
   medication?: string;
+  appointments?: Appointment[];
   notes?: Array<{
     text: string;
     date: string;

@@ -495,10 +495,10 @@ export class PatientDetailsComponent implements OnInit {
     email: '',
     phone: '',
     dni: '',
-    birthDate: new Date(),
+    birthDate: new Date().toISOString().split('T')[0],
     photoUrl: 'assets/avatars/default-avatar.png',
     diagnosis: '',
-    diagnosisDate: null,
+    diagnosisDate: '',
     medication: '',
     notes: [],
     appointments: []

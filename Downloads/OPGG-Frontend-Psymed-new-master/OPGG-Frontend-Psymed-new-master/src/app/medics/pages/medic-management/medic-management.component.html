@@ -1,0 +1,149 @@
+<div class="container">
+  <!-- Vista de Mis Pacientes -->
+  <div *ngIf="currentView === 'patients'" class="patients-view">
+    <div class="header">
+      <h1>Mis Pacientes</h1>
+      <p>Gestiona la información de tus pacientes</p>
+    </div>
+
+    <div class="patients-grid" *ngIf="patients.length > 0">
+      <div *ngFor="let patient of patients" class="patient-card">
+        <div class="patient-header">
+          <div class="patient-avatar">
+            {{ patient.name.charAt(0) }}
+          </div>
+          <div class="patient-info">
+            <h3>{{ patient.name }}</h3>
+            <p>{{ patient.age }} años</p>
+            <p>{{ patient.email }}</p>
+          </div>
+        </div>
+
+        <div class="patient-stats">
+          <div class="stat">
+            <span class="stat-number">{{ patient.totalAppointments }}</span>
+            <span class="stat-label">Citas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{{ patient.lastAppointment }}</span>
+            <span class="stat-label">Última cita</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{{ patient.prescriptions }}</span>
+            <span class="stat-label">Prescripciones</span>
+          </div>
+        </div>
+
+        <div class="patient-actions">
+          <button class="btn-action btn-primary" (click)="viewPatientHistory(patient)">
+            📋 Historial
+          </button>
+          <button class="btn-action btn-secondary" (click)="createPrescription(patient)">
+            💊 Nueva Prescripción
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="patients.length === 0" class="empty-state">
+      <div class="empty-icon">👥</div>
+      <h2>No tienes pacientes asignados</h2>
+      <p>Los pacientes aparecerán aquí cuando tengas citas programadas</p>
+    </div>
+  </div>
+
+  <!-- Vista de Prescripciones -->
+  <div *ngIf="currentView === 'prescriptions'" class="prescriptions-view">
+    <div class="header">
+      <h1>Gestión de Prescripciones</h1>
+      <p>Crea y gestiona las prescripciones médicas de tus pacientes</p>
+    </div>
+
+    <div class="prescriptions-list" *ngIf="prescriptions.length > 0">
+      <div *ngFor="let prescription of prescriptions" class="prescription-card">
+        <div class="prescription-header">
+          <div class="patient-info">
+            <h3>{{ prescription.patientName }}</h3>
+            <p>{{ prescription.getFormattedDate() }}</p>
+          </div>
+          <div class="prescription-status">
+            <span class="medication-count">{{ prescription.getTotalMedications() }} medicamentos</span>
+          </div>
+        </div>
+
+        <div class="prescription-content">
+          <div class="diagnosis">
+            <strong>Diagnóstico:</strong> {{ prescription.diagnosis }}
+          </div>
+
+          <div class="medications">
+            <h4>Medicamentos:</h4>
+            <div class="medication-list">
+              <div *ngFor="let medication of prescription.medications" class="medication-item">
+                <div class="medication-name">{{ medication.name }}</div>
+                <div class="medication-details">{{ medication.getFormattedDosage() }}</div>
+                <div class="medication-instructions">{{ medication.instructions }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="instructions" *ngIf="prescription.instructions">
+            <strong>Instrucciones generales:</strong>
+            <p>{{ prescription.instructions }}</p>
+          </div>
+        </div>
+
+        <div class="prescription-actions">
+          <button class="btn-action btn-primary" (click)="editPrescription(prescription)">
+            ✏️ Editar
+          </button>
+          <button class="btn-action btn-secondary" (click)="duplicatePrescription(prescription)">
+            📋 Duplicar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="prescriptions.length === 0" class="empty-state">
+      <div class="empty-icon">💊</div>
+      <h2>No tienes prescripciones</h2>
+      <p>Las prescripciones que crees aparecerán aquí</p>
+    </div>
+  </div>
+
+  <!-- Vista por defecto (Gestión de Médicos) -->
+  <div *ngIf="currentView === 'default'" class="medics-view">
+    <div class="header">
+      <h1>Gestión de Médicos</h1>
+      <button class="btn-primary" (click)="onCreateMedic()">Nuevo Médico</button>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      <p>Cargando médicos...</p>
+    </div>
+
+    <div class="medics-grid" *ngIf="!isLoading && medics.length > 0">
+      <div *ngFor="let medic of medics" class="medic-card">
+        <div class="medic-header">
+          <h3>Dr. {{ medic.firstName }} {{ medic.lastName }}</h3>
+          <p>Especialidad: {{ medic.specialty }}</p>
+          <p>Email: {{ medic.email }}</p>
+          <p>Teléfono: {{ medic.phone }}</p>
+                     <p>Experiencia: {{ medic.experienceLevel }} ({{ medic.yearsOfExperience }} años)</p>
+          <p>Tarifa: ${{ medic.consultationFee }}</p>
+        </div>
+
+        <div class="medic-actions">
+          <button class="btn-action btn-secondary" (click)="onEditMedic(medic)">Editar</button>
+          <button class="btn-action btn-danger" (click)="onDeleteMedic(medic)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && medics.length === 0" class="empty-state">
+      <div class="empty-icon">👨‍⚕️</div>
+      <h2>No hay médicos registrados</h2>
+      <p>Agrega médicos para comenzar a gestionar el sistema</p>
+    </div>
+  </div>
+</div>

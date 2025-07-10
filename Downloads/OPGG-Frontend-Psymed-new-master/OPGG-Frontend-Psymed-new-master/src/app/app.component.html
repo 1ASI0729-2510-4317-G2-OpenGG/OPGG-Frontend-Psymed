@@ -1,0 +1,45 @@
+<header *ngIf="showNavbar">
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1><a routerLink="/">Sistema de Citas Médicas</a></h1>
+
+      <!-- Navegación para Pacientes -->
+      <div *ngIf="isPatient()" class="nav-links">
+        <span class="user-welcome">Bienvenido, {{ currentUser?.name }}</span>
+        <a routerLink="/patient/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/patient/appointments" routerLinkActive="active">Mis Citas</a>
+        <a routerLink="/patient/book-appointment" routerLinkActive="active">Reservar Cita</a>
+        <a routerLink="/patient/profile" routerLinkActive="active">Mi Perfil</a>
+        <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+      </div>
+
+      <!-- Navegación para Médicos -->
+      <div *ngIf="isMedic()" class="nav-links">
+        <span class="user-welcome">Bienvenido, {{ currentUser?.name }}</span>
+        <a routerLink="/medic/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/medic/appointments" routerLinkActive="active">Mi Agenda</a>
+        <a routerLink="/medic/patients" routerLinkActive="active">Mis Pacientes</a>
+        <a routerLink="/medic/prescriptions" routerLinkActive="active">Prescripciones</a>
+        <a routerLink="/medic/profile" routerLinkActive="active">Mi Perfil</a>
+        <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+      </div>
+
+      <!-- Navegación para Administradores -->
+      <div *ngIf="isAdmin()" class="nav-links">
+        <span class="user-welcome">Bienvenido, {{ currentUser?.name }}</span>
+        <a routerLink="/admin/patients" routerLinkActive="active">Gestión Pacientes</a>
+        <a routerLink="/admin/medics" routerLinkActive="active">Gestión Médicos</a>
+        <a routerLink="/admin/appointments" routerLinkActive="active">Todas las Citas</a>
+        <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer *ngIf="showNavbar">
+  <p>&copy; 2024 Sistema de Citas Médicas</p>
+</footer>

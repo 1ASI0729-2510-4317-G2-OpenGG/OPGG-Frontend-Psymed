@@ -1,0 +1,9 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "course 1",
+      "description": "desc 1ddds"
+    }
+  ]
+}
